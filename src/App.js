@@ -2,12 +2,33 @@ import React from "react";
 import { Route, Router } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Loadable from 'react-loadable';
-import {history} from './_helpers/history'
+import { history } from './_helpers/history';
+import PrivateRoute from "./common/PrivateRoute";
 
 const Loading = () => <div>loading...</div>;
 
 const HomePage = Loadable({
   loader: () => import('./views/homepage/HomePage'),
+  loading: Loading,
+});
+
+const LoginPage = Loadable({
+  loader: () => import('./views/login/Login'),
+  loading: Loading,
+});
+
+const SignUpPage = Loadable({
+  loader: () => import('./views/login/SignUp'),
+  loading: Loading,
+});
+
+const SkillPage = Loadable({
+  loader: () => import('./views/skill/Skill'),
+  loading: Loading,
+});
+
+const ProjectPage = Loadable({
+  loader: () => import('./views/project/Project'),
   loading: Loading,
 });
 
@@ -18,7 +39,8 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: ["Poppins Regular"].join(",")
+    useNextVariants: true,
+    fontFamily: ["poppins-regular"].join(",")
   },
   indicator: {
     backgroundColor: 'white',
@@ -31,8 +53,13 @@ const theme = createMuiTheme({
   overrides: {
     MuiFormLabel: {
       root: {
-        textTransform: 'uppercase',
-        color: '#677e8c',
+        textTransform: 'uppercase'
+      }
+    },
+    MuiToolBar: {
+      root:{
+        backgrond:'transparent',
+        boxShadow: 'none'
       }
     },
     MUIDataTableHeadCell: {
@@ -40,7 +67,8 @@ const theme = createMuiTheme({
         paddingRight: 15,
         paddingLeft: 15,
         verticalAlign: 'middle',
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        backgroundColor: 'black'
       },
     },
     MUIDataTableBodyCell: {
@@ -49,50 +77,39 @@ const theme = createMuiTheme({
         paddingLeft: 15
       }
     },
-    MUIDataTable: {
-      paper: {
-        boxShadow: 'none',
-        borderRadius: '0'
-      }
-    },
-    MUIDataTableToolbar: {
-      root: {
-        display: 'none'
-      }
-    },
-    MuiListItemText: {
-      primary: {
-        '&$textDense': {
-          fontSize: 'inherit'
-        },
-        lineHeight: 'normal',
-        color: "inherit"
-      },
-    },
     MuiTablePagination: {
       caption: {
         flexShrink: 0,
         textTransform: 'uppercase'
       }
     }
-
   }
 });
 
 export class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      authenticated: false,
+      currentUser: null
+    }
+  }
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div style={{ height: '100%' }}>
-
+        <div>
           <Router history={history}>
             <div>
-              <Route path="/home" component={HomePage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/signup" component={SignUpPage} />
+              <PrivateRoute path="/home" component={HomePage} />
+              <PrivateRoute path="/skill" component={SkillPage} />
+              <PrivateRoute path="/project" component={ProjectPage} />
             </div>
           </Router>
         </div>
       </MuiThemeProvider>
-
     );
   }
 }

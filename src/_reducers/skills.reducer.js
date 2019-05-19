@@ -1,10 +1,10 @@
 import { UserActions } from "../_constants/UserActionConstants";
 
-export function employees(state = {}, action) {
+export function skills(state = {}, action) {
     switch (action.type) {
-        case UserActions.FETCH_ALL_EMPLYOEES:
+        case UserActions.FETCH_ALL_SKILLS:
             return {
-                employees: action.data
+                skills : action.data
             };
         default:
             return state;

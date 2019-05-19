@@ -1,9 +1,17 @@
+@font-face {
+  font-family: "poppins-regular";
+  src: url("./fonts/poppins-regular.eot");
+  src: url("./fonts/poppins-regular.ttf") format("tff"),
+  url("./fonts/poppins-regular.woff") format("woff"),
+  url("./fonts/poppins-regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: poppins-regular;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

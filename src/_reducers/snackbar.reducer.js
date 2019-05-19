@@ -1,11 +1,11 @@
 import { UserActions } from "../_constants/UserActionConstants";
 
-export function employees(state = {}, action) {
+export function snackbar(state = {}, action) {
     switch (action.type) {
-        case UserActions.FETCH_ALL_EMPLYOEES:
+        case UserActions.SHOW_SNACKBAR:
             return {
-                employees: action.data
-            };
+                snackbar: action.snackbar
+            }
         default:
             return state;
     }

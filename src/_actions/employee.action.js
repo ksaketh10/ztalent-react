@@ -1,5 +1,7 @@
-import { getAllEmployees } from "../_services/EmployeeSkillService"
-import { ApiConstants } from "../_constants/ApiConstants"
+import { getAllEmployees, createNewEmployee, updateEmployee, deleteEmployee } from "../_services/EmployeeService"
+import { UserActions } from "../_constants/UserActionConstants"
+import { showSnackBar } from "./snackbar.action";
+import { Messages } from "../_constants/Messages";
 
 export function getEmployees() {
     return dispatch => {
@@ -9,16 +11,71 @@ export function getEmployees() {
                     dispatch(fetchData(data));
                 },
                 error => {
-                    dispatch(failure(error));
+                    dispatch(snackbar(error.response));
                 }
             );
     };
 
-    function failure(error) {
-        return { type: ApiConstants.ERROR_IN_FETCH, error }
-    }
-
     function fetchData(data) {
-        return { type: ApiConstants.FETCH_ALL_EMPLYOEES, data: data }
+        return { type: UserActions.FETCH_ALL_EMPLYOEES, data: data }
     }
+}
+
+
+export function createEmployee(employee) {
+    return dispatch => {
+        createNewEmployee(employee)
+            .then(
+                data => {
+                    dispatch(snackbar("success", Messages.ADD_EMPLOYEE_SUCCESS));
+                    // this.getEmployees();
+                },
+                error => {
+                    dispatch(snackbar(error.response));
+                }
+            );
+    };
+}
+
+export function editEmployee(employee) {
+    return dispatch => {
+        updateEmployee(employee)
+            .then(
+                data => {
+                    dispatch(snackbar("success", Messages.UPDATE_EMPLOYEE_SUCCESS))
+                    // this.getEmployees();
+                },
+                error => {
+                    dispatch(snackbar(error.response));
+                }
+            );
+    };
+}
+
+export function deleteEmployees(ids) {
+    return dispatch => {
+        ids.forEach(id => {
+            deleteEmployee(id)
+                .then(
+                    data => {
+                        dispatch(snackbar("success", Messages.DELETE_EMPLOYEE_SUCCESS));
+                    },
+                    error => {
+                        dispatch(snackbar("error", getErrorMessage(error.response)));
+                    }
+                );
+        });
+    };
+}
+
+function getErrorMessage(error) {
+    return (error && error.data) ? error.data.message : Messages.GENERIC_ERROR;
+}
+
+function snackbar(variant, message) {
+    return showSnackBar({
+        variant: variant,
+        snackBarOpen: true,
+        message: message
+    });
 }

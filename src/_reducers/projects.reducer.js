@@ -1,10 +1,10 @@
 import { UserActions } from "../_constants/UserActionConstants";
 
-export function employees(state = {}, action) {
+export function projects(state = {}, action) {
     switch (action.type) {
-        case UserActions.FETCH_ALL_EMPLYOEES:
+        case UserActions.FETCH_ALL_PROJECTS:
             return {
-                employees: action.data
+                projects : action.data
             };
         default:
             return state;

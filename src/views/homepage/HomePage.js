@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Dashboard } from '../dashboard/Dashboard'
+import Dashboard from '../dashboard/Dashboard';
 
 const styles = {
     root: {
@@ -12,15 +12,15 @@ const styles = {
 };
 
 class HomePage extends Component {
-  render() {
-    return (
-        <div className={this.props.classes.root}>
-            <div className={this.props.classes.content}>
-                <Dashboard/>
+    render() {
+        return (
+            <div className={this.props.classes.root}>
+                <div className={this.props.classes.content}>
+                    <Dashboard/>
+                </div>
             </div>
-        </div>
-    );
-  }
+        );
+    }
 }
 
 export default withStyles(styles)(HomePage);
