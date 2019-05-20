@@ -46,7 +46,7 @@ function getErrorMessage(error) {
 function snackbar(variant, message) {
     return showSnackBar({
         variant : variant,
-        snackBarOpen: true,
+        open: true,
         message : message
       });
 }

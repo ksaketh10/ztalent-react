@@ -11,7 +11,7 @@ export function getSkills() {
                     dispatch(fetchData(data));
                 },
                 error => {
-                    dispatch(snackbar(error));
+                    dispatch(snackbar("error", getErrorMessage(error.response)));
                 }
             );
     };
@@ -52,13 +52,13 @@ export function deleteExistingSkill(id) {
 }
 
 function getErrorMessage(error) {
-    return ( error && error.data) ? error.data.message : Messages.GENERIC_ERROR;
+    return (error && error.data) ? error.data.message : Messages.GENERIC_ERROR;
 }
 
 function snackbar(variant, message) {
     return showSnackBar({
-        variant : variant,
-        snackBarOpen: true,
-        message : message
-      });
+        variant: variant,
+        open: true,
+        message: message
+    });
 }

@@ -8,8 +8,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { connect } from 'react-redux';
-import SnackBar from './SnackBar';
 
 const styles = theme => ({
     main: {
@@ -46,37 +44,20 @@ class SigninForm extends Component {
         this.state = {
             email: "",
             password: "",
-            snackBarOpen: false,
-            variant: "success",
-            message: ""
         };
     }
 
     onChangeEmail = (event) => {
         this.setState({
             email: event.target.value,
-            password: this.state.password,
-            snackBarOpen: false,
-            variant: "success",
-            message: ""
+            password: this.state.password
         });
     }
 
     onChangePassword = (event) => {
         this.setState({
             email: this.state.email,
-            password: event.target.value,
-            snackBarOpen: false,
-            variant: "success",
-            message: ""
-        });
-    }
-
-    componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({
-            snackBarOpen: nextProps.snackbar ? nextProps.snackbar.snackBarOpen : false,
-            variant: nextProps.snackbar ? nextProps.snackbar.variant : "success",
-            message: nextProps.snackbar ? nextProps.snackbar.message : ""
+            password: event.target.value
         });
     }
 
@@ -107,24 +88,10 @@ class SigninForm extends Component {
                         </form>
                     </Paper>
                 </main>
-                <SnackBar
-                    open={this.state.snackBarOpen}
-                    variant={this.state.variant}
-                    message={this.state.message}
-                />
             </div>
         );
     }
 }
 
-function mapsStateToProps(state) {
-    const { snackbar } = state.snackbar;
-    return {
-        snackbar
-    };
-}
-
-export default connect(mapsStateToProps)(
-    withStyles(styles)(SigninForm)
-);
+export default withStyles(styles)(SigninForm);
 

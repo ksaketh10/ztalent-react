@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 const variantIcon = {
     success: CheckCircleIcon,
@@ -88,7 +89,7 @@ const styles2 = theme => ({
     },
 });
 
-class CustomizedSnackbars extends React.Component {
+class CustomizedSnackbar extends React.Component {
     state = {
         open: false,
         variant: "",
@@ -99,15 +100,14 @@ class CustomizedSnackbars extends React.Component {
         if (reason === 'clickaway') {
             return;
         }
-
         this.setState({ open: false });
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            open: nextProps.open,
-            variant: nextProps.variant,
-            message: nextProps.message
+            open: nextProps.snackbar.open,
+            variant: nextProps.snackbar.variant,
+            message: nextProps.snackbar.message
         })
     }
 
@@ -134,8 +134,15 @@ class CustomizedSnackbars extends React.Component {
     }
 }
 
-CustomizedSnackbars.propTypes = {
+function mapsStateToProps(state) {
+    const { snackbar } = state.snackbar;
+    return {
+        snackbar
+    };
+}
+
+CustomizedSnackbar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles2)(CustomizedSnackbars);
+export default connect(mapsStateToProps)(withStyles(styles2)(CustomizedSnackbar));

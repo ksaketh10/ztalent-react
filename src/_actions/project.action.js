@@ -11,7 +11,7 @@ export function getProjects() {
                     dispatch(fetchData(data));
                 },
                 error => {
-                    dispatch(snackbar(error));
+                    dispatch(snackbar("error", getErrorMessage(error.response)));
                 }
             );
     };
@@ -58,7 +58,7 @@ function getErrorMessage(error) {
 function snackbar(variant, message) {
     return showSnackBar({
         variant: variant,
-        snackBarOpen: true,
+        open: true,
         message: message
     });
 }

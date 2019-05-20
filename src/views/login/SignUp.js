@@ -7,6 +7,7 @@ import SigninForm from '../../_components/SigninForm';
 import { Button, withStyles, Typography } from '@material-ui/core';
 import { CURRENT_USER } from '../../_constants/UriConstants';
 import { Messages } from '../../_constants/Messages';
+import SnackBar from '../../_components/CustomizedSnackbar';
 
 const styles = theme => ({
     submit: {
@@ -20,40 +21,32 @@ class SignUp extends Component {
         this.state = {
             redirect: false,
             url: "",
-            error: "",
-            showError: false
+            error: ""
         };
         localStorage.removeItem(CURRENT_USER)
     }
 
     handleSignUp = (event, user) => {
         event.preventDefault();
-        let newState;
-        if (!/(\W|^)[\w.+-]*@zemosolabs\.com(\W|$)/ig.test(user.email)) {
-            newState = {
-                error: Messages.INVALID_EMAIL,
-                showError: true
-            };
-        } else if (user.password.length <=6) {
-            newState = {
-                error: Messages.InVALID_PASSWORD,
-                showError: true
-            };
+        let zemosoEmailRegEx = /(\W|^)[\w.+-]*@zemosolabs\.com(\W|$)/ig;//RegEx to validate zemoso email
+        let error = "";
+        if (!zemosoEmailRegEx.test(user.email)) {
+            error = Messages.INVALID_EMAIL;
+        } else if (user.password.length < 6) {
+            error = Messages.INVALID_PASSWORD;
         } else {
-            newState = {
-                error: "",
-                showError: false
-            };
             this.props.createUser(user);
         }
-        this.setState(newState)
+        this.setState({ error });
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({
-            redirect: true,
-            url: "/login"
-        })
+        if (nextProps.user) {
+            this.setState({
+                redirect: true,
+                url: "/login"
+            })
+        }
     }
 
     renderRedirect = () => {
@@ -65,8 +58,12 @@ class SignUp extends Component {
     render() {
         const { classes } = this.props;
         const submitComponent = (<Fragment>
-            <br />
-                <Typography align="center">{this.state.error}</Typography>
+            <Typography
+                align="center"
+                color="error"
+            >
+                {this.state.error}
+            </Typography>
             <Button
                 type="submit"
                 fullWidth
@@ -75,8 +72,7 @@ class SignUp extends Component {
                 className={classes.submit}
             >
                 Sign Up
-</Button>
-
+            </Button>
         </Fragment>);
 
         return (
@@ -86,8 +82,9 @@ class SignUp extends Component {
                     header="Sign Up"
                     passwordHint="SET PASSWORD"
                     handleSubmit={this.handleSignUp}
-                    submitComponent={submitComponent}>
-                </SigninForm>
+                    submitComponent={submitComponent}
+                />
+                <SnackBar />
             </div>
         );
     }

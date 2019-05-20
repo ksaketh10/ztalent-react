@@ -27,18 +27,13 @@ const styles = theme => ({
 
 class AccountLogoutSelect extends React.Component {
 
-  constructor(props) {
-    super(props);
-    let redirect = localStorage.getItem(CURRENT_USER) === ""
-
-    this.state = {
-      open: false,
-      redirect
-    };
-  }
+  state = {
+    open: false,
+    userLoggedOut: false
+  };
 
   renderRedirect = () => {
-    if (this.state.redirect) {
+    if (this.state.userLoggedOut) {
       return <Redirect to='/login' />
     }
   }
@@ -46,21 +41,20 @@ class AccountLogoutSelect extends React.Component {
   handleLogout = () => {
     localStorage.removeItem(CURRENT_USER);
     this.setState({
-      redirect: true
+      userLoggedOut: true
     })
   }
 
   render() {
     const { classes } = this.props;
     let user, initials;
-    if (localStorage.getItem(CURRENT_USER)) {
+    if (localStorage.getItem(CURRENT_USER) && !this.state.userLoggedOut) {
       user = localStorage.getItem(CURRENT_USER).split(".");
-      initials = user[0].charAt(0) + user[1].match(/^([^.]*)./)[1].charAt(0);
+      initials = user[0].charAt(0) + user[1].match(/^([^.]*)./)[1].charAt(0);//concat first letters of first name and last name
     }
     return (
       <div>
         {this.renderRedirect()}
-  
         <Grid container >
           <Grid item xs={2} container justify="flex-end">
             <Avatar className={classes.orangeAvatar}>{initials}</Avatar>

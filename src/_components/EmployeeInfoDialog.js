@@ -31,15 +31,15 @@ class EmployeeInfoDialog extends React.Component {
 
   state = {
     open: false,
-    allSkills: [],
-    allProjects: [],
+    allSkills: [],//for populating skills dropdown
+    allProjects: [],//for populating projects dropdown
     id: "",
     empId: "",
     firstName: "",
     lastName: "",
     designation: "",
-    skills: [],
-    projects: [],
+    skills: [],//skills that user has selected
+    projects: [],//projects that user has selected
     projectAssigned: false,
     mode: UserActions.CREATE_NEW_EMPLOYEE
   };
@@ -82,7 +82,7 @@ class EmployeeInfoDialog extends React.Component {
       designation: this.state.designation,
       skills: this.state.skills,
       projects: this.state.projects,
-      projectAssigned: (key === 'projects' ? value.length !== 0 : this.state.projectAssigned),
+      projectAssigned: (key === 'projects' ? value.length !== 0 : this.state.projectAssigned),//if user doesn't select any project the field is false
       mode: this.state.mode
     }
     newState[key] = value;
@@ -150,6 +150,7 @@ class EmployeeInfoDialog extends React.Component {
                 <FormControl fullWidth>
                   <TextField
                     required
+                    autoFocus
                     margin="dense"
                     type="number"
                     disabled={this.state.mode === UserActions.UPDATE_EMPLOYEE}
@@ -162,7 +163,6 @@ class EmployeeInfoDialog extends React.Component {
                 <FormControl required fullWidth>
                   <TextField
                     required
-                    autoFocus
                     margin="dense"
                     value={this.state.firstName}
                     onChange={this.onChangeFirstName}
@@ -195,7 +195,8 @@ class EmployeeInfoDialog extends React.Component {
                     selectedItems={this.state.skills}
                     handleSelectedItems={this.handleSelectedSkills}
                     name="skills"
-                    placeholder="Select multiple skills" />
+                    placeholder="Select multiple skills"
+                  />
                 </FormControl>
                 <FormControl margin="normal" required fullWidth>
                   <MultiSelector
@@ -203,22 +204,24 @@ class EmployeeInfoDialog extends React.Component {
                     selectedItems={this.state.projects}
                     handleSelectedItems={this.handleSelectedProjects}
                     name="projects"
-                    placeholder="Select multiple projects" />
+                    placeholder="Select multiple projects"
+                  />
                 </FormControl>
                 <FormControlLabel
                   control={<Switch
                     checked={this.state.projectAssigned}
-                    color="primary" />}
-                  label="Project Assigned"
+                    color="primary"
+                  />}
+                  label="PROJECT ASSIGNED"
                   labelPlacement="start"
                 />
                 <Grid container justify="flex-end">
                   <Button variant="contained" type="submit" color="primary">
                     Okay
-            </Button>
+                  </Button>
                   <Button onClick={this.handleClose} color="primary">
                     Cancel
-            </Button>
+                   </Button>
                 </Grid>
               </form>
             </main>

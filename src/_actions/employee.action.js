@@ -5,22 +5,9 @@ import { Messages } from "../_constants/Messages";
 
 export function getEmployees() {
     return dispatch => {
-        getAllEmployees()
-            .then(
-                data => {
-                    dispatch(fetchData(data));
-                },
-                error => {
-                    dispatch(snackbar(error.response));
-                }
-            );
+        retrieveEmployees(dispatch);
     };
-
-    function fetchData(data) {
-        return { type: UserActions.FETCH_ALL_EMPLYOEES, data: data }
-    }
 }
-
 
 export function createEmployee(employee) {
     return dispatch => {
@@ -28,10 +15,10 @@ export function createEmployee(employee) {
             .then(
                 data => {
                     dispatch(snackbar("success", Messages.ADD_EMPLOYEE_SUCCESS));
-                    // this.getEmployees();
+                    retrieveEmployees(dispatch);
                 },
                 error => {
-                    dispatch(snackbar(error.response));
+                    dispatch(snackbar("error", getErrorMessage(error.response)));
                 }
             );
     };
@@ -42,30 +29,43 @@ export function editEmployee(employee) {
         updateEmployee(employee)
             .then(
                 data => {
-                    dispatch(snackbar("success", Messages.UPDATE_EMPLOYEE_SUCCESS))
-                    // this.getEmployees();
+                    dispatch(snackbar("success", Messages.UPDATE_EMPLOYEE_SUCCESS));
+                    retrieveEmployees(dispatch);
                 },
                 error => {
-                    dispatch(snackbar(error.response));
+                    dispatch(snackbar("error", getErrorMessage(error.response)));
                 }
             );
     };
 }
 
-export function deleteEmployees(ids) {
+export function deleteExistingEmployee(id) {
     return dispatch => {
-        ids.forEach(id => {
-            deleteEmployee(id)
-                .then(
-                    data => {
-                        dispatch(snackbar("success", Messages.DELETE_EMPLOYEE_SUCCESS));
-                    },
-                    error => {
-                        dispatch(snackbar("error", getErrorMessage(error.response)));
-                    }
-                );
-        });
+        deleteEmployee(id)
+            .then(
+                data => {
+                    dispatch(snackbar("success", Messages.DELETE_EMPLOYEE_SUCCESS));
+                    retrieveEmployees(dispatch);
+
+                },
+                error => {
+                    dispatch(snackbar("error", getErrorMessage(error.response)));
+                }
+            );
     };
+}
+
+function retrieveEmployees(dispatch) {
+    getAllEmployees()
+        .then(data => {
+            dispatch(fetchData(data));
+        }, error => {
+            dispatch(snackbar("error", getErrorMessage(error.response)));
+        });
+}
+
+function fetchData(data) {
+    return { type: UserActions.FETCH_ALL_EMPLYOEES, data: data }
 }
 
 function getErrorMessage(error) {
@@ -75,7 +75,7 @@ function getErrorMessage(error) {
 function snackbar(variant, message) {
     return showSnackBar({
         variant: variant,
-        snackBarOpen: true,
+        open: true,
         message: message
     });
 }

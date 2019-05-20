@@ -8,12 +8,12 @@ import PrivateRoute from "./common/PrivateRoute";
 const Loading = () => <div>loading...</div>;
 
 const HomePage = Loadable({
-  loader: () => import('./views/homepage/HomePage'),
+  loader: () => import('./views/homepage'),
   loading: Loading,
 });
 
-const LoginPage = Loadable({
-  loader: () => import('./views/login/Login'),
+const SignInPage = Loadable({
+  loader: () => import('./views/login/SignIn'),
   loading: Loading,
 });
 
@@ -23,12 +23,12 @@ const SignUpPage = Loadable({
 });
 
 const SkillPage = Loadable({
-  loader: () => import('./views/skill/Skill'),
+  loader: () => import('./views/skill'),
   loading: Loading,
 });
 
 const ProjectPage = Loadable({
-  loader: () => import('./views/project/Project'),
+  loader: () => import('./views/project'),
   loading: Loading,
 });
 
@@ -56,19 +56,13 @@ const theme = createMuiTheme({
         textTransform: 'uppercase'
       }
     },
-    MuiToolBar: {
-      root:{
-        backgrond:'transparent',
-        boxShadow: 'none'
-      }
-    },
     MUIDataTableHeadCell: {
       root: {
         paddingRight: 15,
         paddingLeft: 15,
         verticalAlign: 'middle',
         whiteSpace: 'nowrap',
-        backgroundColor: 'black'
+        backgroundColor: '#000000'
       },
     },
     MUIDataTableBodyCell: {
@@ -86,30 +80,19 @@ const theme = createMuiTheme({
   }
 });
 
-export class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      authenticated: false,
-      currentUser: null
-    }
-  }
-
-  render() {
-    return (
-      <MuiThemeProvider theme={theme}>
+const App = () => (
+  <MuiThemeProvider theme={theme}>
+    <div>
+      <Router history={history}>
         <div>
-          <Router history={history}>
-            <div>
-              <Route path="/login" component={LoginPage} />
-              <Route path="/signup" component={SignUpPage} />
-              <PrivateRoute path="/home" component={HomePage} />
-              <PrivateRoute path="/skill" component={SkillPage} />
-              <PrivateRoute path="/project" component={ProjectPage} />
-            </div>
-          </Router>
+          <Route path="/login" component={SignInPage} />
+          <Route path="/signup" component={SignUpPage} />
+          <PrivateRoute path="/home" component={HomePage} />
+          <PrivateRoute path="/skill" component={SkillPage} />
+          <PrivateRoute path="/project" component={ProjectPage} />
         </div>
-      </MuiThemeProvider>
-    );
-  }
-}
+      </Router>
+    </div>
+  </MuiThemeProvider>
+);
+export default App;

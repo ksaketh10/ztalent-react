@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import Header from "../../_components/Header";
 import { withStyles } from "@material-ui/core/styles";
-import { EmployeeSkillDataTable } from "../../_components/EmployeeSkillDataTable";
+import EmployeeSkillDataTable from "../../_components/EmployeeSkillDataTable";
 import { Grid } from "@material-ui/core";
-import CreateNewRecord from "../../_components/CreateNewRecordButton"
 import EmployeeInfoDialog from "../../_components/EmployeeInfoDialog";
 import { UserActions } from "../../_constants/UserActionConstants";
-import { connect } from 'react-redux';
-import Snackbar from "../../_components/SnackBar";
+import Snackbar from "../../_components/CustomizedSnackbar";
+import CreateNewButton from "../../_components/CreateNewButton";
 
 const styles = {
     root: {
@@ -49,10 +48,7 @@ class Dashboard extends Component {
             skills: employee.skills,
             projects: employee.projects,
             projectAssigned: employee.projectAssigned,
-            mode: UserActions.UPDATE_EMPLOYEE,
-            snackBarOpen: false,
-            variant: "success",
-            message: ""
+            mode: UserActions.UPDATE_EMPLOYEE
         })
     }
 
@@ -79,29 +75,8 @@ class Dashboard extends Component {
             skills: "",
             projects: "",
             projectAssigned: false,
-            snackBarOpen: false,
-            variant: "success",
-            message: "",
             mode: UserActions.CREATE_NEW_EMPLOYEE
         };
-    }
-
-    componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({
-            open: this.state.open,
-            id: this.state.id,
-            empId: this.state.empId,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            designation: this.state.designation,
-            skills: this.state.skills,
-            projects: this.state.projects,
-            projectAssigned: this.state.projectAssigned,
-            mode: this.state.mode,
-            snackBarOpen: nextProps.snackbar ? nextProps.snackbar.snackBarOpen : false,
-            variant: nextProps.snackbar ? nextProps.snackbar.variant : "success",
-            message: nextProps.snackbar ? nextProps.snackbar.message : ""
-        })
     }
 
     render() {
@@ -111,8 +86,30 @@ class Dashboard extends Component {
                     <Grid item xs={12}>
                         <Header />
                     </Grid>
-                    <Grid item xs={12}>
-                        <CreateNewRecord handleClick={this.handleNewEmployeeClick} />
+                    <Grid item xs={2} />
+                    <Grid item xs={10}>
+                        <Grid container >
+                            <Grid item xs={6}>
+                            </Grid>
+                            <Grid item xs={2} container justify="center">
+                                <CreateNewButton
+                                    href="/skill"
+                                    name="Add Skill"
+                                />
+                            </Grid>
+                            <Grid item xs={2} container justify="center" >
+                                <CreateNewButton
+                                    href="/project"
+                                    name="Add Project"
+                                />
+                            </Grid>
+                            <Grid item xs={2} container justify="center">
+                                <CreateNewButton
+                                    name="Add Employee"
+                                    onClick={this.handleNewEmployeeClick}
+                                />
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item xs={12} className={this.props.classes.margin}>
                         <EmployeeSkillDataTable handleEditEmployeeClick={this.handleEditEmployeeClick} />
@@ -129,22 +126,12 @@ class Dashboard extends Component {
                     skills={this.state.skills}
                     projects={this.state.projects}
                     projectAssigned={this.state.projectAssigned}
-                    mode={this.state.mode} />
-                <Snackbar
-                    open={this.state.snackBarOpen}
-                    variant={this.state.variant}
-                    message={this.state.message}
+                    mode={this.state.mode}
                 />
+                <Snackbar />
             </div>
         )
     }
 }
 
-function mapsStateToProps(state) {
-    const { snackbar } = state.snackbar;
-    return {
-        snackbar
-    };
-}
-
-export default connect(mapsStateToProps)(withStyles(styles)(Dashboard));
+export default withStyles(styles)(Dashboard);

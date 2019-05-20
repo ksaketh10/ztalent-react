@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { getProjects, insertNewProject, deleteExistingProject } from "../../_actions/project.action"
 import ItemsList from "../../_components/ItemsList";
 import InputItem from "../../_components/InputItem";
-import SnackBar from "../../_components/SnackBar";
+import SnackBar from "../../_components/CustomizedSnackbar";
 import HomeIcon from '@material-ui/icons/HomeRounded';
 
 const styles = {
@@ -26,10 +26,7 @@ const styles = {
 class Project extends Component {
 
     state = {
-        projects: [],
-        snackBarOpen: false,
-        variant: "success",
-        message: ""
+        projects: []
     }
 
     componentWillMount() {
@@ -46,12 +43,11 @@ class Project extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({
-            projects: nextProps.projects.data,
-            snackBarOpen: nextProps.snackbar ? nextProps.snackbar.snackBarOpen : false,
-            variant: nextProps.snackbar ? nextProps.snackbar.variant : "success",
-            message: nextProps.snackbar ? nextProps.snackbar.message : ""
-        });
+        if (nextProps.projects) {
+            this.setState({
+                projects: nextProps.projects.data
+            });
+        }
     }
 
     render() {
@@ -60,7 +56,7 @@ class Project extends Component {
             <div>
                 <Header />
                 <Grid container spacing={24} >
-                    <Grid item xs={12} justify="flex-start" >
+                    <Grid item xs={12} container justify="flex-start" >
                         <Fab variant="extended" className={classes.fab} justify="flex-start" href="/home">
                             <HomeIcon />
                             <Typography className={classes.root} component="h3" variant="h5">Home</Typography>
@@ -70,18 +66,15 @@ class Project extends Component {
                         <Typography className={classes.root} component="h3" variant="h5">Add a new project</Typography>
                         <InputItem
                             name="Project"
-                            handleSubmit={this.handleSubmit} />
+                            handleSubmit={this.handleSubmit} 
+                        />
                     </Grid>
-                    <Grid item xs={12} sm={6} className={classes.grid}>
-                        <Typography className={classes.root} component="h3" variant="h5">projects</Typography>
+                    <Grid item xs={12} sm={4} className={classes.grid}>
+                        <Typography className={classes.root} component="h3" variant="h5">PROJECTS</Typography>
                         <ItemsList items={this.state.projects} />
                     </Grid>
                 </Grid>
-                <SnackBar
-                    open={this.state.snackBarOpen}
-                    variant={this.state.variant}
-                    message={this.state.message}
-                />
+                <SnackBar />
             </div>
         )
     }
@@ -89,9 +82,8 @@ class Project extends Component {
 
 function mapsStateToProps(state) {
     const { projects } = state.projects;
-    const { snackbar } = state.snackbar;
     return {
-        projects, snackbar
+        projects
     };
 }
 

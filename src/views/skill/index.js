@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { getSkills, insertNewSkill, deleteExistingSkill } from "../../_actions/skill.action"
 import ItemsList from "../../_components/ItemsList";
 import InputItem from "../../_components/InputItem";
-import SnackBar from "../../_components/SnackBar";
+import SnackBar from "../../_components/CustomizedSnackbar";
 import HomeIcon from '@material-ui/icons/HomeRounded';
 
 const styles = {
@@ -26,10 +26,7 @@ const styles = {
 class Skill extends Component {
 
     state = {
-        skills: [],
-        snackBarOpen: false,
-        variant: "success",
-        message: ""
+        skills: []
     }
 
     componentWillMount() {
@@ -46,12 +43,11 @@ class Skill extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({
-            skills: nextProps.skills.data,
-            snackBarOpen: nextProps.snackbar ? nextProps.snackbar.snackBarOpen : false,
-            variant: nextProps.snackbar ? nextProps.snackbar.variant : "success",
-            message: nextProps.snackbar ? nextProps.snackbar.message : ""
-        });
+        if (nextProps.skills) {
+            this.setState({
+                skills: nextProps.skills.data,
+            });
+        }
     }
 
     render() {
@@ -70,18 +66,15 @@ class Skill extends Component {
                         <Typography className={classes.root} component="h3" variant="h5">Add a new Skill</Typography>
                         <InputItem
                             name="Skill"
-                            handleSubmit={this.handleSubmit} />
+                            handleSubmit={this.handleSubmit}
+                        />
                     </Grid>
-                    <Grid item xs={12} sm={6} className={classes.grid}>
-                        <Typography className={classes.root} component="h3" variant="h5">Skills</Typography>
+                    <Grid item xs={12} sm={4} className={classes.grid}>
+                        <Typography className={classes.root} component="h3" variant="h5">SKILLS</Typography>
                         <ItemsList items={this.state.skills} />
                     </Grid>
                 </Grid>
-                <SnackBar
-                    open={this.state.snackBarOpen}
-                    variant={this.state.variant}
-                    message={this.state.message}
-                />
+                <SnackBar />
             </div>
         )
     }
@@ -89,9 +82,8 @@ class Skill extends Component {
 
 function mapsStateToProps(state) {
     const { skills } = state.skills;
-    const { snackbar } = state.snackbar;
     return {
-        skills, snackbar
+        skills
     };
 }
 

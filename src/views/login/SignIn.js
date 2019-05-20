@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { CURRENT_USER } from '../../_constants/UriConstants';
 import SigninForm from '../../_components/SigninForm';
 import { Button, withStyles, Typography } from '@material-ui/core';
+import SnackBar from '../../_components/CustomizedSnackbar';
 
 const styles = theme => ({
     submit: {
@@ -13,7 +14,7 @@ const styles = theme => ({
     }
 })
 
-class Login extends Component {
+class SignIn extends Component {
     email = "";
     constructor(props) {
         super(props);
@@ -39,10 +40,12 @@ class Login extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
         localStorage.setItem(CURRENT_USER, this.email)
-        this.setState({
-            redirect: true,
-            url: "/home"
-        })
+        if (nextProps.user) {
+            this.setState({
+                redirect: true,
+                url: "/home"
+            })
+        }
     }
 
     renderRedirect = () => {
@@ -63,7 +66,7 @@ class Login extends Component {
             >
                 Sign in
 
-</Button>
+            </Button>
             <div>
                 <br />
                 <Typography align="center"> (Or)</Typography>
@@ -76,7 +79,7 @@ class Login extends Component {
                 className={classes.submit}
             >
                 Sign Up
-</Button>
+            </Button>
 
         </Fragment>);
 
@@ -87,24 +90,25 @@ class Login extends Component {
                     header="Sign in"
                     passwordHint="PASSWORD"
                     handleSubmit={this.handleSignin}
-                    submitComponent={submitComponent}>
-                </SigninForm>
+                    submitComponent={submitComponent}
+                />
+                <SnackBar />
             </div>
         );
     }
 }
 
-Login.propTypes = {
+SignIn.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
 function mapsStateToProps(state) {
-    const { user }  = state.user;
+    const { user } = state.user;
     return {
         user
     };
 }
 
-const connectedLogin = connect(mapsStateToProps, { validateUser })(withStyles(styles)(Login));
+const connectedSignIn = connect(mapsStateToProps, { validateUser })(withStyles(styles)(SignIn));
 
-export default connectedLogin;
+export default connectedSignIn;
