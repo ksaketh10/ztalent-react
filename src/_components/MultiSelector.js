@@ -12,6 +12,8 @@ import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
+import { Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
     root: {
@@ -57,38 +59,8 @@ const styles = theme => ({
     },
 });
 
-function NoOptionsMessage(props) {
-    return (
-        <Typography
-            color="textSecondary"
-            className={props.selectProps.classes.noOptionsMessage}
-            {...props.innerProps}
-        >
-            {props.children}
-        </Typography>
-    );
-}
-
 function inputComponent({ inputRef, ...props }) {
     return <div ref={inputRef} {...props} />;
-}
-
-function Control(props) {
-    return (
-        <TextField
-            fullWidth
-            InputProps={{
-                inputComponent,
-                inputProps: {
-                    className: props.selectProps.classes.input,
-                    inputRef: props.innerRef,
-                    children: props.children,
-                    ...props.innerProps,
-                },
-            }}
-            {...props.selectProps.textFieldProps}
-        />
-    );
 }
 
 function Option(props) {
@@ -123,6 +95,24 @@ function ValueContainer(props) {
     return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
 }
 
+function Control(props) {
+    return (
+        <TextField
+            fullWidth
+            InputProps={{
+                inputComponent,
+                inputProps: {
+                    className: props.selectProps.classes.input,
+                    inputRef: props.innerRef,
+                    children: props.children,
+                    ...props.innerProps
+                },
+            }}
+            {...props.selectProps.textFieldProps}
+        />
+    );
+}
+
 function MultiValue(props) {
     return (
         <Chip
@@ -145,23 +135,53 @@ function Menu(props) {
     );
 }
 
-const components = {
-    Control,
-    Menu,
-    MultiValue,
-    NoOptionsMessage,
-    Option,
-    Placeholder,
-    ValueContainer,
-};
-
 class MultiSelector extends React.Component {
-    
+    newItem = "";
     state = {
         multi: this.props.selectedItems ? this.props.selectedItems.map(item => ({
             value: item,
             label: item
-        })) : []
+        })) : [],
+        items: this.props.items,
+        searchText: ""
+    };
+
+    handleNewItemClick = (value) => {
+        if (value.length !== 0) {
+            this.newItem = value;
+            this.props.onAddNewItem(value);
+        }
+    }
+
+    onInputChange = (newValue, actionMeta) => {
+        this.setState({
+            searchText: newValue
+        })
+    }
+
+    NoOptionsMessage = (props) => {
+        return (
+            <Button fullWidth variant="contained" color="default" size="small" onClick={() => this.handleNewItemClick(props.selectProps.inputValue)}>
+                {props.selectProps.inputValue.length !== 0 && <AddIcon /> }
+                <Typography
+                    color="textPrimary"
+                    className={props.selectProps.classes.noOptionsMessage}
+                    {...props.innerProps}
+                >
+                    {props.selectProps.inputValue.length !== 0 ? this.props.noOptionsMessage: props.children}
+                </Typography>
+            </Button>
+        );
+    }
+
+    components = {
+        Control,
+        Menu,
+        MultiValue,
+        NoOptionsMessage: this.NoOptionsMessage,
+        Option,
+        Placeholder,
+        ValueContainer
     };
 
     handleChange = value => {
@@ -175,9 +195,24 @@ class MultiSelector extends React.Component {
         this.props.handleSelectedItems(items)
     };
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (nextProps.items !== this.props.items) {
+            this.setState({
+                items: nextProps.items,
+                searchText: ""
+            });
+            let newSeletectedItems = this.state.multi;
+            newSeletectedItems.push({
+                value: this.newItem,
+                label: this.newItem
+            });
+            this.handleChange(newSeletectedItems)
+        }
+    }
+
     render() {
-        const { classes, theme, items } = this.props;
-        const suggestions = items.map(item => ({
+        const { classes, theme } = this.props;
+        const suggestions = this.state.items.map(item => ({
             value: item,
             label: item
         }));
@@ -204,10 +239,12 @@ class MultiSelector extends React.Component {
                             },
                         }}
                         options={suggestions}
-                        components={components}
+                        components={this.components}
                         value={this.state.multi}
                         onChange={this.handleChange}
                         placeholder={this.props.placeholder}
+                        inputValue={this.state.searchText}
+                        onInputChange={this.onInputChange}
                         isMulti
                     />
                 </NoSsr>

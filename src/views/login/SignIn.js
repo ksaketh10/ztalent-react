@@ -71,6 +71,8 @@ class SignIn extends Component {
                 <br />
                 <Typography align="center"> (Or)</Typography>
             </div>
+            {/* 
+            // Sign Up feature to be used in future. Commenting for now
             <Button
                 fullWidth
                 variant="contained"
@@ -79,7 +81,7 @@ class SignIn extends Component {
                 className={classes.submit}
             >
                 Sign Up
-            </Button>
+            </Button> */}
 
         </Fragment>);
 

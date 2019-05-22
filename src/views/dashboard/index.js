@@ -89,19 +89,7 @@ class Dashboard extends Component {
                     <Grid item xs={2} />
                     <Grid item xs={10}>
                         <Grid container >
-                            <Grid item xs={6}>
-                            </Grid>
-                            <Grid item xs={2} container justify="center">
-                                <CreateNewButton
-                                    href="/skill"
-                                    name="Add Skill"
-                                />
-                            </Grid>
-                            <Grid item xs={2} container justify="center" >
-                                <CreateNewButton
-                                    href="/project"
-                                    name="Add Project"
-                                />
+                            <Grid item xs={10}>
                             </Grid>
                             <Grid item xs={2} container justify="center">
                                 <CreateNewButton

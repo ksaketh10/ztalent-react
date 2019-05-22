@@ -17,20 +17,21 @@ const SignInPage = Loadable({
   loading: Loading,
 });
 
-const SignUpPage = Loadable({
-  loader: () => import('./views/login/SignUp'),
-  loading: Loading,
-});
+// To be added in future
+// const SignUpPage = Loadable({
+//   loader: () => import('./views/login/SignUp'),
+//   loading: Loading,
+// });
 
-const SkillPage = Loadable({
-  loader: () => import('./views/skill'),
-  loading: Loading,
-});
+// const SkillPage = Loadable({
+//   loader: () => import('./views/skill'),
+//   loading: Loading,
+// });
 
-const ProjectPage = Loadable({
-  loader: () => import('./views/project'),
-  loading: Loading,
-});
+// const ProjectPage = Loadable({
+//   loader: () => import('./views/project'),
+//   loading: Loading,
+// });
 
 const theme = createMuiTheme({
   palette: {
@@ -86,10 +87,10 @@ const App = () => (
       <Router history={history}>
         <div>
           <Route path="/login" component={SignInPage} />
-          <Route path="/signup" component={SignUpPage} />
+          {/* <Route path="/signup" component={SignUpPage} /> */}
           <PrivateRoute path="/home" component={HomePage} />
-          <PrivateRoute path="/skill" component={SkillPage} />
-          <PrivateRoute path="/project" component={ProjectPage} />
+          {/* <PrivateRoute path="/skill" component={SkillPage} />
+          <PrivateRoute path="/project" component={ProjectPage} /> */}
         </div>
       </Router>
     </div>

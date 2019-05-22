@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import MUIDataTable from 'mui-datatables';
@@ -10,6 +10,7 @@ import DoneAll from "@material-ui/icons/DoneAll"
 import CloseRounded from "@material-ui/icons/CloseOutlined";
 import EditIcon from '@material-ui/icons/EditRounded';
 import DeleteIcon from '@material-ui/icons/DeleteForeverRounded';
+import ConfirmationDialog from './ConfirmationDialog';
 
 const styles = theme => ({
     root: {
@@ -55,14 +56,31 @@ class EmployeeSkillDataTable extends React.Component {
         download: true,
         viewColumns: true,
         filter: true,
-        selectableRows: false
+        selectableRows: false,
+        filterType: 'multiselect',
+        onFilterChange: (changedColumn, filterList) => {
+            alert(JSON.stringify(changedColumn))
+            alert(JSON.stringify(filterList))
+        } 
     };
 
     state = {
         rowsData: [],
-        columns: []
+        columns: [],
+        deleteEmpId: null,
+        openConfirmDialog: false
     };
 
+    onDeleteEmployee = (id) => {
+        this.setState({
+            deleteEmpId: id,
+            openConfirmDialog: true
+        })
+    }
+
+    handleOk = () => {
+        this.props.deleteExistingEmployee(this.state.deleteEmpId);
+    }
 
     componentWillMount() {
         const columns = [
@@ -118,7 +136,7 @@ class EmployeeSkillDataTable extends React.Component {
                                     key={skill}
                                     label={skill}
                                     color="primary"
-                                    className={this.props.classes.chip} 
+                                    className={this.props.classes.chip}
                                 />
                             )
                         })
@@ -141,7 +159,7 @@ class EmployeeSkillDataTable extends React.Component {
                                     key={project}
                                     label={project}
                                     color="secondary"
-                                    className={this.props.classes.chip} 
+                                    className={this.props.classes.chip}
                                 />
                             )
                         })
@@ -157,6 +175,7 @@ class EmployeeSkillDataTable extends React.Component {
                 property: "projectAssigned",
                 name: <Typography>ASSIGN</Typography>,
                 options: {
+                    filterType: 'dropdown',
                     customBodyRender: (value, tableMeta, updateValue) => {
                         let componentsToRender = value ? <DoneAll color="primary" /> : <CloseRounded color="secondary" />
                         return (
@@ -173,8 +192,7 @@ class EmployeeSkillDataTable extends React.Component {
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return <EditIcon onClick={() => this.props.handleEditEmployeeClick(value)} />
                     }
-                },
-                filter: false
+                }
             },
             {
                 property: "delete",
@@ -182,10 +200,9 @@ class EmployeeSkillDataTable extends React.Component {
                 options: {
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
-                        return <DeleteIcon color="secondary" onClick={() => this.props.deleteExistingEmployee(value)} />
+                        return <DeleteIcon color="secondary" onClick={() => this.onDeleteEmployee(value)} />
                     }
-                },
-                filter: false
+                }
             }
         ];
         this.setState({ columns: columns });
@@ -228,7 +245,11 @@ class EmployeeSkillDataTable extends React.Component {
                 });
                 datasets.push(dataset);
             });
-            this.setState({ rowsData: datasets });
+            this.setState({
+                rowsData: datasets,
+                deleteEmpId: null,
+                openConfirmDialog: false
+            });
         }
     }
 
@@ -247,6 +268,11 @@ class EmployeeSkillDataTable extends React.Component {
                     data={this.state.rowsData}
                     columns={this.state.columns}
                     options={this.options}
+                />
+                <ConfirmationDialog
+                    open={this.state.openConfirmDialog}
+                    handleOk={this.handleOk}
+                    content="Are you sure you want to delete this employee"
                 />
             </div>
         );

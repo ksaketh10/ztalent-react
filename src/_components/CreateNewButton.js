@@ -1,12 +1,21 @@
 import React from "react";
 import AddIcon from '@material-ui/icons/Add';
-import { Fab, Typography } from '@material-ui/core';
+import { Typography, Button, withStyles } from '@material-ui/core';
+
+const styles = theme => ({
+    button: {
+      margin: theme.spacing.unit,
+    },
+    leftIcon: {
+      marginRight: theme.spacing.unit,
+    }
+  });
 
 const CreateNewButton = (props) => (
-    <Fab variant="extended" href={props.href} onClick={props.onClick}>
-        <AddIcon />
+    <Button variant="contained" color="primary" className={props.classes.button} href={props.href} onClick={props.onClick}>
+        <AddIcon className={props.classes.leftIcon}/>
         <Typography variant="caption" color="inherit">{props.name}</Typography>
-    </Fab>
+    </Button>
 )
 
-export default CreateNewButton;
+export default withStyles(styles)(CreateNewButton);

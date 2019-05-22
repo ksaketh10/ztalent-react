@@ -5,9 +5,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { connect } from 'react-redux'
 import { createEmployee, editEmployee } from "../_actions/employee.action";
-import { getSkills } from "../_actions/skill.action";
-import { getProjects } from "../_actions/project.action";
-import { withStyles, FormControlLabel, Switch, Typography, FormControl, Grid } from '@material-ui/core';
+import { getSkills, insertNewSkill} from "../_actions/skill.action";
+import { getProjects, insertNewProject } from "../_actions/project.action";
+import { withStyles, Typography, FormControl, Grid } from '@material-ui/core';
 import MultiSelector from './MultiSelector'
 import { UserActions } from '../_constants/UserActionConstants';
 
@@ -114,6 +114,14 @@ class EmployeeInfoDialog extends React.Component {
     this.props.getProjects();
   }
 
+  onAddNewSkill = (value) => {
+    this.props.insertNewSkill(value)
+  }
+
+  onAddNewProject = (value) => {
+    this.props.insertNewProject(value)
+  }
+
   componentWillReceiveProps(nextProps, nextContext) {
     this.setState({
       open: nextProps.openDialog,
@@ -179,6 +187,28 @@ class EmployeeInfoDialog extends React.Component {
                     fullWidth
                   />
                 </FormControl>
+                <FormControl margin="normal" required fullWidth>
+                  <MultiSelector
+                    items={this.state.allSkills}
+                    selectedItems={this.state.skills}
+                    handleSelectedItems={this.handleSelectedSkills}
+                    name="skills"
+                    placeholder="Select multiple skills"
+                    onAddNewItem={this.onAddNewSkill}
+                    noOptionsMessage="Add this skill"
+                  />
+                </FormControl>
+                <FormControl margin="normal" required fullWidth>
+                  <MultiSelector
+                    items={this.state.allProjects}
+                    selectedItems={this.state.projects}
+                    handleSelectedItems={this.handleSelectedProjects}
+                    name="projects"
+                    placeholder="Select multiple projects"
+                    onAddNewItem={this.onAddNewProject}
+                    noOptionsMessage="Add this project"
+                  />
+                </FormControl>
                 <FormControl required fullWidth>
                   <TextField
                     required
@@ -189,32 +219,6 @@ class EmployeeInfoDialog extends React.Component {
                     fullWidth
                   />
                 </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                  <MultiSelector
-                    items={this.state.allSkills}
-                    selectedItems={this.state.skills}
-                    handleSelectedItems={this.handleSelectedSkills}
-                    name="skills"
-                    placeholder="Select multiple skills"
-                  />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                  <MultiSelector
-                    items={this.state.allProjects}
-                    selectedItems={this.state.projects}
-                    handleSelectedItems={this.handleSelectedProjects}
-                    name="projects"
-                    placeholder="Select multiple projects"
-                  />
-                </FormControl>
-                <FormControlLabel
-                  control={<Switch
-                    checked={this.state.projectAssigned}
-                    color="primary"
-                  />}
-                  label="PROJECT ASSIGNED"
-                  labelPlacement="start"
-                />
                 <Grid container justify="flex-end">
                   <Button variant="contained" type="submit" color="primary">
                     Okay
@@ -241,7 +245,7 @@ function mapsStateToProps(state) {
   };
 }
 
-export default connect(mapsStateToProps, { getSkills, createEmployee, editEmployee, getProjects })(
+export default connect(mapsStateToProps, { getSkills, insertNewSkill, createEmployee, editEmployee, getProjects, insertNewProject })(
   withStyles(styles)(EmployeeInfoDialog)
 );
 
