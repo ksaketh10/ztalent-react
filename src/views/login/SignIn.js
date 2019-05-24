@@ -67,11 +67,11 @@ class SignIn extends Component {
                 Sign in
 
             </Button>
-            <div>
+            {/* <div>
                 <br />
                 <Typography align="center"> (Or)</Typography>
             </div>
-            {/* 
+            
             // Sign Up feature to be used in future. Commenting for now
             <Button
                 fullWidth

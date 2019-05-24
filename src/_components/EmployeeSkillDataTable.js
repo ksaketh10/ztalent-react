@@ -57,11 +57,7 @@ class EmployeeSkillDataTable extends React.Component {
         viewColumns: true,
         filter: true,
         selectableRows: false,
-        filterType: 'multiselect',
-        onFilterChange: (changedColumn, filterList) => {
-            alert(JSON.stringify(changedColumn))
-            alert(JSON.stringify(filterList))
-        } 
+        filterType: 'multiselect'
     };
 
     state = {

@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'http://localhost:8080';
+export const API_BASE_URL = 'http://ec2-18-236-185-143.us-west-2.compute.amazonaws.com:8080';
 export const CURRENT_USER = 'currentUser';
 
 // Employee Urls
@@ -21,4 +21,4 @@ export const CREATE_USER_URL = API_BASE_URL + "/user/create"
 export const CHECK_USER_URL = API_BASE_URL + "/user/check"
 
 export const AUTH_USER = "user"
-export const AUTH_PASS = "00d41adf-bea6-4163-a8c7-9c5a6224121f"
+export const AUTH_PASS = "e6db4a07-db9b-4592-a702-995eaca71aec"
