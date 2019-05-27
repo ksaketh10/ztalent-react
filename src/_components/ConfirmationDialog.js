@@ -22,7 +22,7 @@ class ConfirmationDialogRaw extends React.Component {
                 {...other}
             >
                 <DialogTitle id="confirmation-dialog-title">
-                    <Typography variant="title" color="inherit">Confirm</Typography>
+                    Confirm
                 </DialogTitle>
                 <DialogContent>
                     <Typography variant="caption" color="inherit">{this.props.content}</Typography>

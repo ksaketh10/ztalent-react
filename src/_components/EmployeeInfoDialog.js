@@ -5,7 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { connect } from 'react-redux'
 import { createEmployee, editEmployee } from "../_actions/employee.action";
-import { getSkills, insertNewSkill} from "../_actions/skill.action";
+import { getSkills, insertNewSkill } from "../_actions/skill.action";
 import { getProjects, insertNewProject } from "../_actions/project.action";
 import { withStyles, Typography, FormControl, Grid } from '@material-ui/core';
 import MultiSelector from './MultiSelector'
@@ -123,20 +123,27 @@ class EmployeeInfoDialog extends React.Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    this.setState({
-      open: nextProps.openDialog,
-      allSkills: nextProps.allSkills ? nextProps.allSkills.data : this.state.allSkills,
-      allProjects: nextProps.allProjects ? nextProps.allProjects.data : this.state.allProjects,
-      id: nextProps.id,
-      empId: nextProps.empId || "",
-      firstName: nextProps.firstName,
-      lastName: nextProps.lastName,
-      designation: nextProps.designation,
-      skills: nextProps.skills || [],
-      projects: nextProps.projects || [],
-      projectAssigned: nextProps.projectAssigned,
-      mode: nextProps.mode
-    });
+    if ((nextProps.allSkills && nextProps.allSkills.data.length !== this.state.allSkills.length)
+      || (nextProps.allProjects && nextProps.allProjects.data.length !== this.state.allProjects.length)) {
+      this.setState({
+        open: nextProps.openDialog,
+        allSkills: nextProps.allSkills ? nextProps.allSkills.data : this.state.allSkills,
+        allProjects: nextProps.allProjects ? nextProps.allProjects.data : this.state.allProjects
+      });
+    } else {
+      this.setState({
+        open: nextProps.openDialog,
+        id: nextProps.id,
+        empId: nextProps.empId || "",
+        firstName: nextProps.firstName,
+        lastName: nextProps.lastName,
+        designation: nextProps.designation,
+        skills: nextProps.skills || [],
+        projects: nextProps.projects || [],
+        projectAssigned: nextProps.projectAssigned,
+        mode: nextProps.mode
+      });
+    }
   }
 
   render() {
