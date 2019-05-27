@@ -2,10 +2,12 @@
   "name": "ztalent-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ksaketh10.github.io/ztalent-react/",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
+    "gh-pages": "^2.0.1",
     "material-ui": "^0.20.2",
     "mui-datatables": "^2.0.0",
     "react": "^16.8.6",
@@ -19,10 +21,12 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "PORT=80 react-scripts start",
-    "build": "PORT=80 react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
