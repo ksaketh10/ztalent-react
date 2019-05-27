@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0276b140662e1b6559ec0d4c512ad9f7",
+    "revision": "5928f91fe9598410fa7984ce15673519",
     "url": "/ztalent-react/index.html"
   },
   {
-    "revision": "c08a27d9692904d17195",
+    "revision": "bf9760628dac83568662",
     "url": "/ztalent-react/static/css/main.85911dc8.chunk.css"
   },
   {
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ztalent-react/static/js/6.cb9a5181.chunk.js"
   },
   {
-    "revision": "c08a27d9692904d17195",
-    "url": "/ztalent-react/static/js/main.983cb2e4.chunk.js"
+    "revision": "bf9760628dac83568662",
+    "url": "/ztalent-react/static/js/main.f8829867.chunk.js"
   },
   {
     "revision": "19d7f8ce1ba3fe86df9b",
