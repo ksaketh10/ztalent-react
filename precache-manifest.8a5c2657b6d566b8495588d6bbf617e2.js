@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0fa4bc54f6f2049182356d41ba84f5fd",
+    "revision": "9f11f6dedbad82a52402afed950cd14d",
     "url": "/ztalent-react/index.html"
   },
   {
-    "revision": "e696dbb168f800638d5d",
+    "revision": "f5bde6182f6ee4466d85",
     "url": "/ztalent-react/static/css/main.85911dc8.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ztalent-react/static/js/0.23e14401.chunk.js"
   },
   {
-    "revision": "ce316fb8c5955ed61231",
-    "url": "/ztalent-react/static/js/3.29d0689f.chunk.js"
+    "revision": "a1435b5649406dca39ee",
+    "url": "/ztalent-react/static/js/3.118dbbac.chunk.js"
   },
   {
     "revision": "60458bc55ca9f3788ea4",
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ztalent-react/static/js/6.6165a760.chunk.js"
   },
   {
-    "revision": "e696dbb168f800638d5d",
-    "url": "/ztalent-react/static/js/main.87dfae94.chunk.js"
+    "revision": "f5bde6182f6ee4466d85",
+    "url": "/ztalent-react/static/js/main.85a88c61.chunk.js"
   },
   {
     "revision": "ef64a63f96ad698cc77b",
