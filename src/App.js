@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Router } from "react-router-dom";
+import { Route, BrowserRouter } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Loadable from 'react-loadable';
 import { history } from './_helpers/history';
@@ -84,7 +84,7 @@ const theme = createMuiTheme({
 const App = () => (
   <MuiThemeProvider theme={theme}>
     <div>
-      <Router history={history}>
+      <BrowserRouter basename='https://ksaketh10.github.io/ztalent-react/'>
         <div>
           <Route path="/login" component={SignInPage} />
           {/* <Route path="/signup" component={SignUpPage} /> */}
@@ -92,7 +92,7 @@ const App = () => (
           {/* <PrivateRoute path="/skill" component={SkillPage} />
           <PrivateRoute path="/project" component={ProjectPage} /> */}
         </div>
-      </Router>
+      </BrowserRouter>
     </div>
   </MuiThemeProvider>
 );
