@@ -161,7 +161,7 @@ class MultiSelector extends React.Component {
 
     NoOptionsMessage = (props) => {
         return (
-            <Button fullWidth variant="contained" color="default" size="small" onClick={() => this.handleNewItemClick(props.selectProps.inputValue)}>
+            <Button id="no_options" fullWidth variant="contained" color="default" size="small" onClick={() => this.handleNewItemClick(props.selectProps.inputValue)}>
                 {props.selectProps.inputValue.length !== 0 && <AddIcon /> }
                 <Typography
                     color="textPrimary"

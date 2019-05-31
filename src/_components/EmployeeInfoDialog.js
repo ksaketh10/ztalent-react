@@ -168,6 +168,7 @@ class EmployeeInfoDialog extends React.Component {
                     autoFocus
                     margin="dense"
                     type="number"
+                    id="emp_id"
                     disabled={this.state.mode === UserActions.UPDATE_EMPLOYEE}
                     value={this.state.empId}
                     onChange={this.onChangeEmpId}
@@ -179,6 +180,7 @@ class EmployeeInfoDialog extends React.Component {
                   <TextField
                     required
                     margin="dense"
+                    id="first_name"
                     value={this.state.firstName}
                     onChange={this.onChangeFirstName}
                     label="First Name"
@@ -188,6 +190,7 @@ class EmployeeInfoDialog extends React.Component {
                 <FormControl required fullWidth>
                   <TextField
                     margin="dense"
+                    id="last_name"
                     value={this.state.lastName}
                     onChange={this.onChangeLastName}
                     label="Last Name"
@@ -196,6 +199,7 @@ class EmployeeInfoDialog extends React.Component {
                 </FormControl>
                 <FormControl margin="normal" required fullWidth>
                   <MultiSelector
+                    id="skills"
                     items={this.state.allSkills}
                     selectedItems={this.state.skills}
                     handleSelectedItems={this.handleSelectedSkills}
@@ -207,6 +211,7 @@ class EmployeeInfoDialog extends React.Component {
                 </FormControl>
                 <FormControl margin="normal" required fullWidth>
                   <MultiSelector
+                    id="projects"
                     items={this.state.allProjects}
                     selectedItems={this.state.projects}
                     handleSelectedItems={this.handleSelectedProjects}
@@ -218,6 +223,7 @@ class EmployeeInfoDialog extends React.Component {
                 </FormControl>
                 <FormControl required fullWidth>
                   <TextField
+                    id="designation"
                     required
                     margin="dense"
                     value={this.state.designation}
@@ -227,10 +233,10 @@ class EmployeeInfoDialog extends React.Component {
                   />
                 </FormControl>
                 <Grid container justify="flex-end">
-                  <Button variant="contained" type="submit" color="primary">
+                  <Button variant="contained" id="employee_submit" type="submit" color="primary">
                     Okay
                   </Button>
-                  <Button onClick={this.handleClose} color="primary">
+                  <Button onClick={this.handleClose} id="employee_cancel" color="primary">
                     Cancel
                    </Button>
                 </Grid>

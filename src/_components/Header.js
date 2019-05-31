@@ -33,7 +33,7 @@ function Header(props) {
                         <Avatar alt="Remy Sharp" src={zemosoIcon} className={classes.imageLogo} />
                     </Grid>
                     <Grid item xs={4} container justify="flex-end">
-                        <Typography variant="h6" color="inherit" className={classes.grow}>
+                        <Typography variant="h6" id = "title" color="inherit" className={classes.grow}>
                             ZE - TALENT
                         </Typography>
                     </Grid>

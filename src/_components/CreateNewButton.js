@@ -12,7 +12,7 @@ const styles = theme => ({
   });
 
 const CreateNewButton = (props) => (
-    <Button variant="contained" color="primary" className={props.classes.button} href={props.href} onClick={props.onClick}>
+    <Button variant="contained" color="primary" className={props.classes.button} href={props.href} onClick={props.onClick} {...props}>
         <AddIcon className={props.classes.leftIcon}/>
         <Typography variant="caption" color="inherit">{props.name}</Typography>
     </Button>

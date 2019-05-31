@@ -93,6 +93,7 @@ class Dashboard extends Component {
                             </Grid>
                             <Grid item xs={2} container justify="center">
                                 <CreateNewButton
+                                    id="add_employee"
                                     name="Add Employee"
                                     onClick={this.handleNewEmployeeClick}
                                 />

@@ -57,15 +57,15 @@ class AccountLogoutSelect extends React.Component {
         {this.renderRedirect()}
         <Grid container >
           <Grid item xs={2} container justify="flex-end">
-            <Avatar className={classes.orangeAvatar}>{initials}</Avatar>
+            <Avatar className={classes.orangeAvatar} id="initials">{initials}</Avatar>
           </Grid>
           <Grid item xs={4} container justify="flex-start">
-            <Typography variant="h6" color="inherit" className={classes.padding}>
+            <Typography variant="h6" id="user" color="inherit" className={classes.padding}>
               {user ? user[0] : ""}
             </Typography>
           </Grid>
           <Grid item xs={6} container justify="flex-end">
-            <Button variant="outlined" color="primary" className={classes.button} onClick={this.handleLogout}>
+            <Button variant="outlined" color="primary" id="logout" className={classes.button} onClick={this.handleLogout}>
               Log Out
           </Button>
           </Grid>

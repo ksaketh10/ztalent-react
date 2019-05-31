@@ -1,0 +1,45 @@
+[
+    {
+        "id": 2,
+        "empId": 1234,
+        "firstName": "Saketh",
+        "lastName": "Kumar",
+        "designation": "SDEIII",
+        "projectAssigned": false,
+        "projects": [],
+        "skills": [
+            "Java",
+            "React"
+        ]
+    },
+    {
+        "id": 3,
+        "empId": 2345,
+        "firstName": "Shashank",
+        "lastName": "Sheela",
+        "designation": "Principle SDE",
+        "projectAssigned": true,
+        "projects": [
+            "AdmitAlly"
+        ],
+        "skills": [
+            "Java",
+            "Aws",
+            "React"
+        ]
+    },
+    {
+        "id": 4,
+        "empId": 26151,
+        "firstName": "test",
+        "lastName": "",
+        "designation": "test",
+        "projectAssigned": true,
+        "projects": [
+            "Uav"
+        ],
+        "skills": [
+            "Android"
+        ]
+    }
+]
