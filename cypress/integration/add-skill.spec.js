@@ -75,7 +75,7 @@ function setUp() {
         .click();
     cy.get('#react-select-2-input')
         .type('NewSkill', { force: true });
-    cy.get('.MultiSelector-root-456 #no_options')
+    cy.get('#no_options')
         .click();
 }
 

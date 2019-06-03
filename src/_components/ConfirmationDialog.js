@@ -15,6 +15,7 @@ class ConfirmationDialogRaw extends React.Component {
 
         return (
             <Dialog
+                id="confirmation_dialog"
                 disableBackdropClick
                 disableEscapeKeyDown
                 maxWidth="xs"
@@ -25,13 +26,13 @@ class ConfirmationDialogRaw extends React.Component {
                     Confirm
                 </DialogTitle>
                 <DialogContent>
-                    <Typography variant="caption" color="inherit">{this.props.content}</Typography>
+                    <Typography id="confirmation-dialog-content" variant="caption" color="inherit">{this.props.content}</Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="contained" onClick={this.props.handleOk} color="primary">
+                    <Button id="delete_ok" variant="contained" onClick={this.props.handleOk} color="primary">
                         Ok
                     </Button>
-                    <Button onClick={this.props.handleCancel}>
+                    <Button id="delete_cancel" onClick={this.props.handleCancel}>
                         Cancel
                     </Button>
                 </DialogActions>

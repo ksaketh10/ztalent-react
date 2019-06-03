@@ -165,7 +165,7 @@ class EmployeeInfoDialog extends React.Component {
         >
           <DialogContent>
             <main className={classes.main}>
-              <Typography component="h1" variant="h5">
+              <Typography id="dialog_title" component="h1" variant="h5">
                 {this.state.mode}
               </Typography>
               <form className={classes.form} onSubmit={this.handleOkay}>

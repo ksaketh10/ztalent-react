@@ -58,7 +58,10 @@ class EmployeeSkillDataTable extends React.Component {
         viewColumns: true,
         filter: true,
         selectableRows: false,
-        filterType: 'multiselect'
+        filterType: 'multiselect',
+        downloadOptions: {
+            columns: ["empId","firstName"]
+        }
     };
 
     state = {
@@ -190,7 +193,7 @@ class EmployeeSkillDataTable extends React.Component {
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return (
-                            <Button onClick={() => this.props.handleEditEmployeeClick(value)}>
+                            <Button id="edit" onClick={() => this.props.handleEditEmployeeClick(value)}>
                                 <EditIcon />
                             </Button>
                         )
@@ -205,7 +208,7 @@ class EmployeeSkillDataTable extends React.Component {
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return (
-                            <Button onClick={() => this.onDeleteEmployee(value)}>
+                            <Button id="delete" onClick={() => this.onDeleteEmployee(value)}>
                                 <DeleteIcon color="secondary" onClick={() => this.onDeleteEmployee(value)} />
                             </Button>
                         )

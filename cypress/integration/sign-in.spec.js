@@ -10,11 +10,11 @@ describe('Sign In', () => {
     })
 
     it('accepts email input', () => {
-        const typedemail = 'firstName.lastName@zemosolabs.com'
+        const typedEmail = 'firstName.lastName@zemosolabs.com'
 
         cy.get('#email')
-            .type(typedemail)
-            .should('have.value', typedemail)
+            .type(typedEmail)
+            .should('have.value', typedEmail)
     })
 
     it('accepts password input', () => {

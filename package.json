@@ -26,7 +26,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress": "cypress open",
-    "cypress:all": "cypress run"
+    "cypress:all": "cypress run",
+    "deploy:prod": "rsync -avzhe ssh --progress ./public/* root@krim.com:/root/krim.com"
   },
   "eslintConfig": {
     "extends": "react-app"
