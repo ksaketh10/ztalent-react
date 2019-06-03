@@ -136,11 +136,11 @@ describe('Home Page', () => {
         .should('be.visible')
     })
 
-    it('Click on add employee dialog form should see Add Employee title', () => {
+    it.only('Click on add employee dialog form should see Add Employee title', () => {
       cy.get('#add_employee')
         .click()
 
-      cy.get('.EmployeeInfoDialog-main-383')
+      cy.get('.EmployeeInfoDialog-main-381')
         .find('h1')
         .should('have.text', 'Add Employee')
     })
@@ -252,8 +252,7 @@ describe('Home Page', () => {
       cy.seedAndVisit()
       cy.get('tr')
         .eq(2)
-        .find('.MuiSvgIcon-root-223')
-        .eq(1)
+        .find('#edit')
         .click()
     })
 
@@ -263,7 +262,7 @@ describe('Home Page', () => {
     })
 
     it('Click on edit employee dialog form should see Update Employee title', () => {
-      cy.get('.EmployeeInfoDialog-main-383')
+      cy.get('.EmployeeInfoDialog-main-381')
         .find('h1')
         .should('have.text', 'Update Employee')
     })
@@ -280,7 +279,7 @@ describe('Home Page', () => {
       cy.get('#designation')
         .should('have.value', 'Principle SDE');
 
-      cy.get('.MultiSelector-valueContainer-458 span')
+      cy.get('.MultiSelector-valueContainer-464 span')
         .should('contain', 'Java')
         .should('contain', 'Aws')
         .should('contain', 'React')
@@ -357,21 +356,20 @@ describe('Home Page', () => {
       cy.seedAndVisit()
       cy.get('tr')
         .eq(3)
-        .find('.MuiSvgIcon-root-223')
-        .eq(2)
+        .find('#delete')
         .click()
     })
 
     it('Click on delete employee confirmation dialog should be visible', () => {
-      cy.get('.MuiDialog-container-371')
+      cy.get('.MuiDialog-container-369')
         .should('be.visible')
     })
 
     it('Click on delete employee confirmation dialog title and description should be visible', () => {
-      cy.get('.MuiDialog-container-371 h6')
+      cy.get('.MuiDialog-container-369 h6')
         .should('have.text', 'Confirm')
 
-      cy.get('.MuiDialog-container-371 span')
+      cy.get('.MuiDialog-container-369 span')
         .should('contain', 'Are you sure you want to delete this employee')
     })
 
@@ -389,7 +387,7 @@ describe('Home Page', () => {
         .should('have.length', 5)
         .and('contain', 'test')
 
-      cy.get('.MuiDialog-container-371 button')
+      cy.get('.MuiDialog-container-369 button')
         .eq(0)
         .click()
 
@@ -408,7 +406,7 @@ describe('Home Page', () => {
         response: {}
       })
 
-      cy.get('.MuiDialog-container-371 button')
+      cy.get('.MuiDialog-container-369 button')
         .eq(0)
         .click()
 
@@ -425,7 +423,7 @@ describe('Home Page', () => {
         response: ''
       })
 
-      cy.get('.MuiDialog-container-371 button')
+      cy.get('.MuiDialog-container-369 button')
         .eq(0)
         .click()
 
@@ -434,11 +432,11 @@ describe('Home Page', () => {
     })
 
     it('Click on delete and click cancel and should not see confirm dialog', () => {
-      cy.get('.MuiDialog-container-371 button')
+      cy.get('.MuiDialog-container-369 button')
         .eq(1)
         .click()
 
-      cy.get('.MuiDialog-container-371')
+      cy.get('.MuiDialog-container-369')
         .should('not.be.visible')
     })
   })
