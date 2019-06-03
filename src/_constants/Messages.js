@@ -19,4 +19,6 @@ export const Messages = {
     // Add/Delete skill success messages
     ADD_PROJECT_SUCCESS: "Project added successfully",
     DELETE_PROJECT_SUCCESS: "Project deleted successfully",
+
+    SPECIAL_CHARACTERS_NOT_ALLOWED: "Special characters not allowed in first letter"
 };

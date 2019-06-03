@@ -56,7 +56,7 @@ describe('Home Page', () => {
 
     it("Sees Tool title, initials and name", () => {
       cy.get('#title')
-        .should('have.text', 'ZE - TALENT')
+        .should('have.text', 'Z-Talent')
       cy.get('#user')
         .should('have.text', 'saketh')
       cy.get('#initials')

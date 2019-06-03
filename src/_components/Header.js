@@ -25,19 +25,20 @@ const styles = {
 
 function Header(props) {
     const { classes } = props;
+    document.title="Z-Talent";
     return (
         <AppBar position="static" color="default" className={classes.shadow}>
             <Toolbar>
                 <Grid container spacing={24}>
-                    <Grid item xs={2} container justify="flex-end">
+                    <Grid item xs={1} container justify="flex-end">
                         <Avatar alt="Remy Sharp" src={zemosoIcon} className={classes.imageLogo} />
                     </Grid>
-                    <Grid item xs={4} container justify="flex-end">
+                    <Grid item xs={4} container justify="flex-start">
                         <Typography variant="h6" id = "title" color="inherit" className={classes.grow}>
-                            ZE - TALENT
+                            Z-Talent
                         </Typography>
                     </Grid>
-                    <Grid item xs={6} container justify="flex-end">
+                    <Grid item xs={7} container justify="flex-end">
                         <AccountLogoutSelect onLogOut={props.onLogOut} />
                     </Grid>
                 </Grid>

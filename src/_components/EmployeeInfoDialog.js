@@ -10,6 +10,7 @@ import { getProjects, insertNewProject } from "../_actions/project.action";
 import { withStyles, Typography, FormControl, Grid } from '@material-ui/core';
 import MultiSelector from './MultiSelector'
 import { UserActions } from '../_constants/UserActionConstants';
+import { Messages } from '../_constants/Messages';
 
 const styles = theme => ({
   root: {
@@ -26,7 +27,7 @@ const styles = theme => ({
     width: '100%',
   }
 })
-
+let hasError = { firstname: false, lastName: false, designation: false }
 class EmployeeInfoDialog extends React.Component {
 
   state = {
@@ -100,6 +101,12 @@ class EmployeeInfoDialog extends React.Component {
       projects: this.state.projects,
       projectAssigned: this.state.projectAssigned
     };
+
+    for (var key in hasError) {
+      if (hasError[key]) {
+        return
+      }
+    }
     if (this.state.mode === UserActions.CREATE_NEW_EMPLOYEE) {
       this.props.createEmployee(empRequest);
     } else if (this.state.mode === UserActions.UPDATE_EMPLOYEE) {
@@ -127,8 +134,8 @@ class EmployeeInfoDialog extends React.Component {
       || (nextProps.allProjects && nextProps.allProjects.data.length !== this.state.allProjects.length)) {
       this.setState({
         open: nextProps.openDialog,
-        allSkills: nextProps.allSkills ? nextProps.allSkills.data : this.state.allSkills,
-        allProjects: nextProps.allProjects ? nextProps.allProjects.data : this.state.allProjects
+        allSkills: nextProps.allSkills ? nextProps.allSkills.data.sort() : this.state.allSkills,
+        allProjects: nextProps.allProjects ? nextProps.allProjects.data.sort() : this.state.allProjects
       });
     } else {
       this.setState({
@@ -168,6 +175,7 @@ class EmployeeInfoDialog extends React.Component {
                     autoFocus
                     margin="dense"
                     type="number"
+                    inputProps={{ min: 1 }}
                     id="emp_id"
                     disabled={this.state.mode === UserActions.UPDATE_EMPLOYEE}
                     value={this.state.empId}
@@ -176,11 +184,16 @@ class EmployeeInfoDialog extends React.Component {
                     fullWidth
                   />
                 </FormControl>
-                <FormControl required fullWidth>
+                <FormControl
+                  required
+                  fullWidth
+                >
                   <TextField
                     required
                     margin="dense"
                     id="first_name"
+                    error={validateTextField(this.state.firstName, 'firstName')}
+                    helperText={validateTextField(this.state.firstName, 'firstName') ? Messages.SPECIAL_CHARACTERS_NOT_ALLOWED : ' '}
                     value={this.state.firstName}
                     onChange={this.onChangeFirstName}
                     label="First Name"
@@ -193,6 +206,8 @@ class EmployeeInfoDialog extends React.Component {
                     id="last_name"
                     value={this.state.lastName}
                     onChange={this.onChangeLastName}
+                    error={validateTextField(this.state.lastName, 'lastName')}
+                    helperText={validateTextField(this.state.lastName, 'lastName') ? Messages.SPECIAL_CHARACTERS_NOT_ALLOWED : ' '}
                     label="Last Name"
                     fullWidth
                   />
@@ -226,6 +241,8 @@ class EmployeeInfoDialog extends React.Component {
                     id="designation"
                     required
                     margin="dense"
+                    error={validateTextField(this.state.designation, 'designation')}
+                    helperText={validateTextField(this.state.designation, 'designation') ? Messages.SPECIAL_CHARACTERS_NOT_ALLOWED : ' '}
                     value={this.state.designation}
                     onChange={this.onChangeDesignation}
                     label="Designation"
@@ -256,6 +273,12 @@ function mapsStateToProps(state) {
     allSkills: skills,
     allProjects: projects
   };
+}
+
+function validateTextField(input, fieldName) {
+  let isInvalid = input !== "" && !/^[a-zA-Z]{1}/.test(input);
+  hasError[fieldName] = isInvalid;
+  return isInvalid;
 }
 
 export default connect(mapsStateToProps, { getSkills, insertNewSkill, createEmployee, editEmployee, getProjects, insertNewProject })(

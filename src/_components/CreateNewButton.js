@@ -1,21 +1,17 @@
 import React from "react";
 import AddIcon from '@material-ui/icons/Add';
-import { Typography, Button, withStyles } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 
-const styles = theme => ({
-    button: {
-      margin: theme.spacing.unit,
-    },
-    leftIcon: {
-      marginRight: theme.spacing.unit,
-    }
-  });
+class CreateNewButton extends React.Component {
 
-const CreateNewButton = (props) => (
-    <Button variant="contained" color="primary" className={props.classes.button} href={props.href} onClick={props.onClick} {...props}>
-        <AddIcon className={props.classes.leftIcon}/>
-        <Typography variant="caption" color="inherit">{props.name}</Typography>
-    </Button>
-)
+  render() {
+    return (
+      <Button variant="contained" color="primary" href={this.props.href} onClick={this.props.onClick} {...this.props}>
+        <AddIcon />
+        <Typography variant="caption" color="inherit">{this.props.name}</Typography>
+      </Button>
+    )
+  }
+}
 
-export default withStyles(styles)(CreateNewButton);
+export default (CreateNewButton);

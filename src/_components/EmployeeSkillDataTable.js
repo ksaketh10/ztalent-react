@@ -11,6 +11,7 @@ import CloseRounded from "@material-ui/icons/CloseOutlined";
 import EditIcon from '@material-ui/icons/EditRounded';
 import DeleteIcon from '@material-ui/icons/DeleteForeverRounded';
 import ConfirmationDialog from './ConfirmationDialog';
+import { Button } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -82,19 +83,18 @@ class EmployeeSkillDataTable extends React.Component {
         const columns = [
             {
                 property: "empId",
-                name: <Typography>EMP ID</Typography>,
+                name: (<Typography><strong>EMP ID</strong></Typography>),
                 options: {
-                    sort: true,
                     sortDirection: "asc",
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return this.renderTableCell(value);
-                    }
+                    },
                 }
             },
             {
                 property: "firstName",
-                name: <Typography>FIRST NAME</Typography>,
+                name: <Typography><strong>FIRST NAME</strong></Typography>,
                 options: {
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
@@ -104,7 +104,7 @@ class EmployeeSkillDataTable extends React.Component {
             },
             {
                 property: "lastName",
-                name: <Typography>LAST NAME</Typography>,
+                name: <Typography><strong>LAST NAME</strong></Typography>,
                 options: {
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
@@ -114,7 +114,7 @@ class EmployeeSkillDataTable extends React.Component {
             },
             {
                 property: "designation",
-                name: <Typography>DESIGNATION</Typography>,
+                name: <Typography><strong>DESIGNATION</strong></Typography>,
                 options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return this.renderTableCell(value);
@@ -123,8 +123,9 @@ class EmployeeSkillDataTable extends React.Component {
             },
             {
                 property: "skills",
-                name: <Typography>SKILLS</Typography>,
+                name: <Typography><strong>SKILLS</strong></Typography>,
                 options: {
+                    sort: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         let componentsToRender = value.map(skill => {
                             return (
@@ -146,8 +147,9 @@ class EmployeeSkillDataTable extends React.Component {
             },
             {
                 property: "projects",
-                name: <Typography>PROJECTS</Typography>,
+                name: <Typography><strong>PROJECTS</strong></Typography>,
                 options: {
+                    sort: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         let componentsToRender = value.map(project => {
                             return (
@@ -169,7 +171,7 @@ class EmployeeSkillDataTable extends React.Component {
             },
             {
                 property: "projectAssigned",
-                name: <Typography>ASSIGN</Typography>,
+                name: <Typography><strong>ASSIGN</strong></Typography>,
                 options: {
                     filterType: 'dropdown',
                     customBodyRender: (value, tableMeta, updateValue) => {
@@ -182,21 +184,31 @@ class EmployeeSkillDataTable extends React.Component {
             },
             {
                 property: "edit",
-                name: <Typography>EDIT</Typography>,
+                name: <Typography><strong>EDIT</strong></Typography>,
                 options: {
+                    sort: false,
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
-                        return <EditIcon onClick={() => this.props.handleEditEmployeeClick(value)} />
+                        return (
+                            <Button onClick={() => this.props.handleEditEmployeeClick(value)}>
+                                <EditIcon />
+                            </Button>
+                        )
                     }
                 }
             },
             {
                 property: "delete",
-                name: <Typography>DELETE</Typography>,
+                name: <Typography><strong>DELETE</strong></Typography>,
                 options: {
+                    sort: false,
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
-                        return <DeleteIcon color="secondary" onClick={() => this.onDeleteEmployee(value)} />
+                        return (
+                            <Button onClick={() => this.onDeleteEmployee(value)}>
+                                <DeleteIcon color="secondary" onClick={() => this.onDeleteEmployee(value)} />
+                            </Button>
+                        )
                     }
                 }
             }
@@ -220,7 +232,7 @@ class EmployeeSkillDataTable extends React.Component {
                         employee[column.property].forEach(item => {
                             items.push(item);
                         })
-                        dataset.push(items);
+                        dataset.push(items.sort());
                     } else if (column.property === "edit") {//for edit add the employee information as value
                         let editEmp = {
                             "id": employee["id"],

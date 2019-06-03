@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { CURRENT_USER } from '../../_constants/UriConstants';
 import SigninForm from '../../_components/SigninForm';
-import { Button, withStyles, Typography } from '@material-ui/core';
+import { Button, withStyles } from '@material-ui/core';
 import SnackBar from '../../_components/CustomizedSnackbar';
 
 const styles = theme => ({
