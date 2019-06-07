@@ -58,10 +58,7 @@ class EmployeeSkillDataTable extends React.Component {
         viewColumns: true,
         filter: true,
         selectableRows: false,
-        filterType: 'multiselect',
-        downloadOptions: {
-            columns: ["empId","firstName"]
-        }
+        filterType: 'multiselect'
     };
 
     state = {
@@ -86,47 +83,67 @@ class EmployeeSkillDataTable extends React.Component {
         const columns = [
             {
                 property: "empId",
-                name: (<Typography><strong>EMP ID</strong></Typography>),
+                name: "EMPLOYEE ID",
                 options: {
                     sortDirection: "asc",
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return this.renderTableCell(value);
                     },
-                }
-            },
-            {
-                property: "firstName",
-                name: <Typography><strong>FIRST NAME</strong></Typography>,
-                options: {
-                    filter: false,
-                    customBodyRender: (value, tableMeta, updateValue) => {
-                        return this.renderTableCell(value);
+                    customHeadRender : (columnMeta, handleToggleColumn) => {
+                        return (
+                            <td align="center" key="empId"><Typography><strong>ID</strong></Typography></td>
+                        )
                     }
                 }
             },
             {
-                property: "lastName",
-                name: <Typography><strong>LAST NAME</strong></Typography>,
+                property: "firstName",
+                name: "FIRST NAME",
                 options: {
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return this.renderTableCell(value);
                     },
-                },
-            },
-            {
-                property: "designation",
-                name: <Typography><strong>DESIGNATION</strong></Typography>,
-                options: {
-                    customBodyRender: (value, tableMeta, updateValue) => {
-                        return this.renderTableCell(value);
+                    customHeadRender : (columnMeta, handleToggleColumn) => {
+                        return (
+                            <td align="center" key="firstName"><Typography><strong>FIRST NAME</strong></Typography></td>
+                        )
                     }
                 }
             },
             {
+                property: "lastName",
+                name: "LAST NAME",
+                options: {
+                    filter: false,
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                        return this.renderTableCell(value);
+                    },
+                    customHeadRender : (columnMeta, handleToggleColumn) => {
+                        return (
+                            <td align="center" key="lastName"><Typography><strong>LAST NAME</strong></Typography></td>
+                        )
+                    }
+                },
+            },
+            {
+                property: "designation",
+                name: "DESIGNATION",
+                options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                        return this.renderTableCell(value);
+                    },
+                    customHeadRender : (columnMeta, handleToggleColumn) => {
+                        return (
+                            <td align="center" key="designation"><Typography><strong>DESIGNATION</strong></Typography></td>
+                        )
+                    }
+                },
+            },
+            {
                 property: "skills",
-                name: <Typography><strong>SKILLS</strong></Typography>,
+                name: "SKILLS",
                 options: {
                     sort: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
@@ -145,12 +162,17 @@ class EmployeeSkillDataTable extends React.Component {
                                 {componentsToRender}
                             </div>
                         );
+                    },
+                    customHeadRender : (columnMeta, handleToggleColumn) => {
+                        return (
+                            <td align="center" key="skills"><Typography><strong>SKILLS</strong></Typography></td>
+                        )
                     }
                 }
             },
             {
                 property: "projects",
-                name: <Typography><strong>PROJECTS</strong></Typography>,
+                name: "PROJECTS",
                 options: {
                     sort: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
@@ -169,48 +191,73 @@ class EmployeeSkillDataTable extends React.Component {
                                 {componentsToRender}
                             </div>
                         );
+                    },
+                    customHeadRender : (columnMeta, handleToggleColumn) => {
+                        return (
+                            <td align="center" key="projects"><Typography><strong>PROJECTS</strong></Typography></td>
+                        )
                     }
                 }
             },
             {
                 property: "projectAssigned",
-                name: <Typography><strong>ASSIGN</strong></Typography>,
+                name: "ASSIGN",
                 options: {
                     filterType: 'dropdown',
+                    customFilterListRender: value => {
+                        return value ? "Assigned" : "Not Assigned"
+                    },
                     customBodyRender: (value, tableMeta, updateValue) => {
                         let componentsToRender = value ? <DoneAll color="primary" /> : <CloseRounded color="secondary" />
                         return (
                             componentsToRender
                         );
+                    },
+                    customHeadRender : (columnMeta, handleToggleColumn) => {
+                        return (
+                            <td align="center" key="projectAssigned"><Typography><strong>ASSIGN</strong></Typography></td>
+                        )
                     }
                 }
             },
             {
                 property: "edit",
-                name: <Typography><strong>EDIT</strong></Typography>,
+                name: "EDIT",
                 options: {
                     sort: false,
                     filter: false,
+                    download: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return (
                             <Button id="edit" onClick={() => this.props.handleEditEmployeeClick(value)}>
                                 <EditIcon />
                             </Button>
                         )
+                    },
+                    customHeadRender : (columnMeta, handleToggleColumn) => {
+                        return (
+                            <td align="center" key="edit"><Typography><strong>EDIT</strong></Typography></td>
+                        )
                     }
                 }
             },
             {
                 property: "delete",
-                name: <Typography><strong>DELETE</strong></Typography>,
+                name: "DELETE",
                 options: {
                     sort: false,
                     filter: false,
+                    download: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return (
                             <Button id="delete" onClick={() => this.onDeleteEmployee(value)}>
                                 <DeleteIcon color="secondary" onClick={() => this.onDeleteEmployee(value)} />
                             </Button>
+                        )
+                    },
+                    customHeadRender : (columnMeta, handleToggleColumn) => {
+                        return (
+                            <td align="center" key="delete"><Typography><strong>DELETE</strong></Typography></td>
                         )
                     }
                 }

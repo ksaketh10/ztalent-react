@@ -1,4 +1,4 @@
- export const API_BASE_URL = 'http://ec2-18-236-185-143.us-west-2.compute.amazonaws.com:8080';
+ export const API_BASE_URL = 'https://ztalent.gq:8443';
 //export const API_BASE_URL = 'localhost:3000';
 export const CURRENT_USER = 'currentUser';
 
