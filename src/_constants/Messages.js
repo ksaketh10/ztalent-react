@@ -20,5 +20,5 @@ export const Messages = {
     ADD_PROJECT_SUCCESS: "Project added successfully",
     DELETE_PROJECT_SUCCESS: "Project deleted successfully",
 
-    SPECIAL_CHARACTERS_NOT_ALLOWED: "Special characters not allowed in first letter"
+    SPECIAL_CHARACTERS_NOT_ALLOWED: "Numbers or Special characters not allowed in first letter"
 };
