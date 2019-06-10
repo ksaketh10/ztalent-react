@@ -1,12 +1,12 @@
 import Axios from "axios";
-import { SKILLS_URL, AUTH_USER, AUTH_PASS, DELETE_SKILL_URL } from "../_constants/UriConstants";
+import { SKILLS_URL, AUTH_USER, AUTH_PASS, CURRENT_USER } from "../_constants/UriConstants";
 
 export function getAllSkills() {
     return Axios(SKILLS_URL);
 }
 
 export function createSkill(skill) {
-    let headers = { 'content-type': 'application/json' };
+    let headers = { 'content-type': 'application/json', 'user': localStorage.getItem(CURRENT_USER) };
     const formData = {
         'tag': skill
     };
@@ -20,15 +20,15 @@ export function createSkill(skill) {
     });
 }
 
-export function deleteSkill(id) {
-    let headers = { 'content-type': 'application/json' };
+// export function deleteSkill(id) {
+//     let headers = { 'content-type': 'application/json' };
     
-    return Axios.delete(DELETE_SKILL_URL+`${id}`,  {
-        auth: {
-            username: AUTH_USER,
-            password: AUTH_PASS
-        },
-        headers: headers
-    });
-}
+//     return Axios.delete(DELETE_SKILL_URL+`${id}`,  {
+//         auth: {
+//             username: AUTH_USER,
+//             password: AUTH_PASS
+//         },
+//         headers: headers
+//     });
+// }
 

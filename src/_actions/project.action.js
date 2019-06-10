@@ -1,4 +1,4 @@
-import { getAllProjects, createProject, deleteProject } from "../_services/ProjectService"
+import { getAllProjects, createProject } from "../_services/ProjectService"
 import { UserActions } from "../_constants/UserActionConstants"
 import { showSnackBar } from "./snackbar.action";
 import { Messages } from "../_constants/Messages";
@@ -36,20 +36,20 @@ export function insertNewProject(project) {
     };
 }
 
-export function deleteExistingProject(id) {
-    return dispatch => {
-        deleteProject(id)
-            .then(
-                data => {
-                    dispatch(snackbar("success", Messages.DELETE_PROJECT_SUCCESS));
-                    this.getProjects();
-                },
-                error => {
-                    dispatch(snackbar("error", getErrorMessage(error.response)));
-                }
-            );
-    }
-}
+// export function deleteExistingProject(id) {
+//     return dispatch => {
+//         deleteProject(id)
+//             .then(
+//                 data => {
+//                     dispatch(snackbar("success", Messages.DELETE_PROJECT_SUCCESS));
+//                     this.getProjects();
+//                 },
+//                 error => {
+//                     dispatch(snackbar("error", getErrorMessage(error.response)));
+//                 }
+//             );
+//     }
+// }
 
 function getErrorMessage(error) {
     return (error && error.data) ? error.data.message : Messages.GENERIC_ERROR;

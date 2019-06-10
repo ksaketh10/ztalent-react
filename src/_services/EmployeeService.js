@@ -1,12 +1,12 @@
 import Axios from "axios";
-import { EMPLOYEES_URL, AUTH_USER, AUTH_PASS, UPDATE_EMPLOYEE_URL, DELETE_EMPLOYEE_URL } from "../_constants/UriConstants";
+import { EMPLOYEES_URL, AUTH_USER, AUTH_PASS, UPDATE_EMPLOYEE_URL, DELETE_EMPLOYEE_URL, CURRENT_USER } from "../_constants/UriConstants";
 
 export function getAllEmployees() {
     return Axios(EMPLOYEES_URL)
 }
 
 export function createNewEmployee(employee) {
-    let headers = { 'content-type': 'application/json' };
+    let headers = { 'content-type': 'application/json', 'user': localStorage.getItem(CURRENT_USER) };
     const formData = {
         'empId':employee.empId,
         'firstName': employee.firstName,
@@ -27,7 +27,7 @@ export function createNewEmployee(employee) {
 }
 
 export function updateEmployee(employee) {
-    let headers = { 'content-type': 'application/json' };
+    let headers = { 'content-type': 'application/json', 'user': localStorage.getItem(CURRENT_USER) };
     const formData = {
         'empId':employee.empId,
         'firstName': employee.firstName,
