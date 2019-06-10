@@ -57,6 +57,7 @@ class EmployeeSkillDataTable extends React.Component {
         download: true,
         viewColumns: true,
         filter: true,
+        sort: true,
         selectableRows: false,
         filterType: 'multiselect'
     };
@@ -83,67 +84,52 @@ class EmployeeSkillDataTable extends React.Component {
         const columns = [
             {
                 property: "empId",
-                name: "EMPLOYEE ID",
+                name: "ID",
+                label: <Typography><strong>ID</strong></Typography>,
                 options: {
                     sortDirection: "asc",
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return this.renderTableCell(value);
-                    },
-                    customHeadRender : (columnMeta, handleToggleColumn) => {
-                        return (
-                            <td align="center" key="empId"><Typography><strong>ID</strong></Typography></td>
-                        )
                     }
                 }
             },
             {
                 property: "firstName",
                 name: "FIRST NAME",
+                label: <Typography><strong>FIRST NAME</strong></Typography>,
                 options: {
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return this.renderTableCell(value);
-                    },
-                    customHeadRender : (columnMeta, handleToggleColumn) => {
-                        return (
-                            <td align="center" key="firstName"><Typography><strong>FIRST NAME</strong></Typography></td>
-                        )
                     }
                 }
             },
             {
                 property: "lastName",
                 name: "LAST NAME",
+                label: <Typography><strong>LAST NAME</strong></Typography>,
                 options: {
                     filter: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return this.renderTableCell(value);
-                    },
-                    customHeadRender : (columnMeta, handleToggleColumn) => {
-                        return (
-                            <td align="center" key="lastName"><Typography><strong>LAST NAME</strong></Typography></td>
-                        )
                     }
                 },
             },
             {
                 property: "designation",
                 name: "DESIGNATION",
+                label: <Typography><strong>DESIGNATION</strong></Typography>,
                 options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
                         return this.renderTableCell(value);
-                    },
-                    customHeadRender : (columnMeta, handleToggleColumn) => {
-                        return (
-                            <td align="center" key="designation"><Typography><strong>DESIGNATION</strong></Typography></td>
-                        )
                     }
                 },
             },
             {
                 property: "skills",
                 name: "SKILLS",
+                label: <Typography><strong>SKILLS</strong></Typography>,
                 options: {
                     sort: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
@@ -162,17 +148,13 @@ class EmployeeSkillDataTable extends React.Component {
                                 {componentsToRender}
                             </div>
                         );
-                    },
-                    customHeadRender : (columnMeta, handleToggleColumn) => {
-                        return (
-                            <td align="center" key="skills"><Typography><strong>SKILLS</strong></Typography></td>
-                        )
                     }
                 }
             },
             {
                 property: "projects",
                 name: "PROJECTS",
+                label: <Typography><strong>PROJECTS</strong></Typography>,
                 options: {
                     sort: false,
                     customBodyRender: (value, tableMeta, updateValue) => {
@@ -191,17 +173,13 @@ class EmployeeSkillDataTable extends React.Component {
                                 {componentsToRender}
                             </div>
                         );
-                    },
-                    customHeadRender : (columnMeta, handleToggleColumn) => {
-                        return (
-                            <td align="center" key="projects"><Typography><strong>PROJECTS</strong></Typography></td>
-                        )
                     }
                 }
             },
             {
                 property: "projectAssigned",
                 name: "ASSIGN",
+                label: <Typography><strong>ASSIGN</strong></Typography>,
                 options: {
                     filterType: 'dropdown',
                     customFilterListRender: value => {
@@ -212,17 +190,13 @@ class EmployeeSkillDataTable extends React.Component {
                         return (
                             componentsToRender
                         );
-                    },
-                    customHeadRender : (columnMeta, handleToggleColumn) => {
-                        return (
-                            <td align="center" key="projectAssigned"><Typography><strong>ASSIGN</strong></Typography></td>
-                        )
                     }
                 }
             },
             {
                 property: "edit",
                 name: "EDIT",
+                label: <Typography><strong>EDIT</strong></Typography>,
                 options: {
                     sort: false,
                     filter: false,
@@ -233,17 +207,13 @@ class EmployeeSkillDataTable extends React.Component {
                                 <EditIcon />
                             </Button>
                         )
-                    },
-                    customHeadRender : (columnMeta, handleToggleColumn) => {
-                        return (
-                            <td align="center" key="edit"><Typography><strong>EDIT</strong></Typography></td>
-                        )
                     }
                 }
             },
             {
                 property: "delete",
                 name: "DELETE",
+                label: <Typography><strong>DELETE</strong></Typography>,
                 options: {
                     sort: false,
                     filter: false,
@@ -253,11 +223,6 @@ class EmployeeSkillDataTable extends React.Component {
                             <Button id="delete" onClick={() => this.onDeleteEmployee(value)}>
                                 <DeleteIcon color="secondary" onClick={() => this.onDeleteEmployee(value)} />
                             </Button>
-                        )
-                    },
-                    customHeadRender : (columnMeta, handleToggleColumn) => {
-                        return (
-                            <td align="center" key="delete"><Typography><strong>DELETE</strong></Typography></td>
                         )
                     }
                 }
