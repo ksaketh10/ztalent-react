@@ -1,28 +1,27 @@
 import Axios from "axios";
-import { SKILLS_URL, AUTH_USER, AUTH_PASS, CURRENT_USER } from "../_constants/UriConstants";
+import { SKILLS_URL } from "../_constants/UriConstants";
+import { generateRequestOptions, authHeader } from "../_helpers/auth-header";
 
 export function getAllSkills() {
-    return Axios(SKILLS_URL);
+    const headers = { 'Authorization': 'Bearer ' + localStorage.getItem('refresh_token'), 'Content-Type': 'application/json' }
+    const requestOptions = generateRequestOptions('GET', SKILLS_URL, null, headers)
+    return Axios(requestOptions)
 }
 
 export function createSkill(skill) {
-    let headers = { 'content-type': 'application/json', 'user': localStorage.getItem(CURRENT_USER) };
     const formData = {
         'tag': skill
     };
-
-    return Axios.post(SKILLS_URL, formData, {
-        auth: {
-            username: AUTH_USER,
-            password: AUTH_PASS
-        },
-        headers: headers
-    });
+    return authHeader()
+        .then(headers => {
+            const requestOptions = generateRequestOptions('POST', SKILLS_URL, formData, headers)
+            return Axios(requestOptions)
+        })
 }
 
 // export function deleteSkill(id) {
 //     let headers = { 'content-type': 'application/json' };
-    
+
 //     return Axios.delete(DELETE_SKILL_URL+`${id}`,  {
 //         auth: {
 //             username: AUTH_USER,

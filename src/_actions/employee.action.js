@@ -18,7 +18,7 @@ export function createEmployee(employee) {
                     retrieveEmployees(dispatch);
                 },
                 error => {
-                    dispatch(snackbar("error", getErrorMessage(error.response)));
+                    dispatchError(dispatch, error)
                 }
             );
     };
@@ -33,7 +33,7 @@ export function editEmployee(employee) {
                     retrieveEmployees(dispatch);
                 },
                 error => {
-                    dispatch(snackbar("error", getErrorMessage(error.response)));
+                    dispatchError(dispatch, error)
                 }
             );
     };
@@ -49,7 +49,7 @@ export function deleteExistingEmployee(id) {
 
                 },
                 error => {
-                    dispatch(snackbar("error", getErrorMessage(error.response)));
+                    dispatchError(dispatch, error)
                 }
             );
     };
@@ -60,7 +60,7 @@ function retrieveEmployees(dispatch) {
         .then(data => {
             dispatch(fetchData(data));
         }, error => {
-            dispatch(snackbar("error", getErrorMessage(error.response)));
+            dispatchError(dispatch, error)
         });
 }
 
@@ -68,8 +68,12 @@ function fetchData(data) {
     return { type: UserActions.FETCH_ALL_EMPLYOEES, data: data }
 }
 
-function getErrorMessage(error) {
-    return (error && error.data) ? error.data.message : Messages.GENERIC_ERROR;
+function dispatchError(dispatch, error) {
+    if (error) {
+        const errorResponse = error.response;
+        const error1 = (errorResponse && errorResponse.data) ? errorResponse.data.message : Messages.GENERIC_ERROR;
+        dispatch(snackbar("error", error1));
+    }
 }
 
 function snackbar(variant, message) {

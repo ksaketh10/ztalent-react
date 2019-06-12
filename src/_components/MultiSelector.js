@@ -52,7 +52,7 @@ const styles = theme => ({
         zIndex: 1,
         marginTop: theme.spacing.unit,
         left: 0,
-        right: 0,
+        right: 0
     },
     divider: {
         height: theme.spacing.unit * 2,

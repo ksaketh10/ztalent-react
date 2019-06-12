@@ -3,13 +3,14 @@ import {
     Route,
     Redirect
   } from "react-router-dom";
-import { CURRENT_USER } from '../_constants/UriConstants';
+
+import { isRefreshTokenValid } from '../_helpers/auth-header';
 
 const PrivateRoute = ({ component: Component, authenticated, ...rest }) => (
     <Route
       {...rest}
       render={props =>
-        localStorage.getItem(CURRENT_USER) ? (
+        isRefreshTokenValid() ? (
           <Component {...rest} {...props} />
         ) : (
           <Redirect

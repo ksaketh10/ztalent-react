@@ -1,11 +1,11 @@
-import { createNewUser, checkUser } from "../_services/UserService";
+import { userService } from "../_services/UserService";
 import { UserActions } from "../_constants/UserActionConstants";
 import { showSnackBar } from "./snackbar.action";
 import { Messages } from "../_constants/Messages";
 
 export function createUser(user) {
     return dispatch => {
-        createNewUser(user)
+       userService.createNewUser(user)
             .then(
                 data => {
                     dispatch(fetchData(data));
@@ -23,13 +23,13 @@ export function createUser(user) {
 
 export function validateUser(user) {
     return dispatch => {
-        checkUser(user)
+        userService.checkUser(user)
             .then(
                 data => {
                     dispatch(fetchData(data));
                 },
                 error => {
-                    dispatch(snackbar("error", getErrorMessage(error.response)));
+                    dispatch(snackbar("error", getErrorMessage(error)));
                 }
             );
     };
@@ -40,7 +40,7 @@ export function validateUser(user) {
 }
 
 function getErrorMessage(error) {
-    return ( error && error.data) ? error.data.message : Messages.GENERIC_ERROR;
+    return ( error  && error !== "") ? error : Messages.GENERIC_ERROR;
 }
 
 function snackbar(variant, message) {

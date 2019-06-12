@@ -1,14 +1,16 @@
 import Axios from "axios";
-import { EMPLOYEES_URL, AUTH_USER, AUTH_PASS, UPDATE_EMPLOYEE_URL, DELETE_EMPLOYEE_URL, CURRENT_USER } from "../_constants/UriConstants";
+import { EMPLOYEES_URL } from "../_constants/UriConstants";
+import { generateRequestOptions, authHeader } from "../_helpers/auth-header";
 
 export function getAllEmployees() {
-    return Axios(EMPLOYEES_URL)
+    const headers = { 'Authorization': 'Bearer ' + localStorage.getItem('refresh_token'), 'Content-Type': 'application/json' }
+    const requestOptions = generateRequestOptions('GET', EMPLOYEES_URL, null, headers)
+    return Axios(requestOptions)
 }
 
 export function createNewEmployee(employee) {
-    let headers = { 'content-type': 'application/json', 'user': localStorage.getItem(CURRENT_USER) };
     const formData = {
-        'empId':employee.empId,
+        'empId': employee.empId,
         'firstName': employee.firstName,
         'lastName': employee.lastName,
         'designation': employee.designation,
@@ -17,19 +19,16 @@ export function createNewEmployee(employee) {
         'projects': employee.projects
     };
 
-    return Axios.post(EMPLOYEES_URL, formData, {
-        auth: {
-            username: AUTH_USER,
-            password: AUTH_PASS
-        },
-        headers: headers,
-    })
+    return authHeader()
+        .then(headers => {
+            const requestOptions = generateRequestOptions('POST', EMPLOYEES_URL, formData, headers)
+            return Axios(requestOptions)
+        })
 }
 
 export function updateEmployee(employee) {
-    let headers = { 'content-type': 'application/json', 'user': localStorage.getItem(CURRENT_USER) };
     const formData = {
-        'empId':employee.empId,
+        'empId': employee.empId,
         'firstName': employee.firstName,
         'lastName': employee.lastName,
         'designation': employee.designation,
@@ -38,15 +37,17 @@ export function updateEmployee(employee) {
         'projects': employee.projects
     };
 
-    return Axios.put(UPDATE_EMPLOYEE_URL + `/${employee.id}`, formData, {
-        auth: {
-            username: AUTH_USER,
-            password: AUTH_PASS
-        },
-        headers: headers,
-    })
+    return authHeader()
+        .then(headers => {
+            const requestOptions = generateRequestOptions('PUT', EMPLOYEES_URL + `/${employee.id}`, formData, headers)
+            return Axios(requestOptions)
+        })
 }
 
 export function deleteEmployee(id) {
-    return Axios.delete(DELETE_EMPLOYEE_URL + `/${id}`)
+    return authHeader()
+        .then(headers => {
+            const requestOptions = generateRequestOptions('DELETE', EMPLOYEES_URL + `/${id}`, null, headers)
+            return Axios(requestOptions)
+        })
 }

@@ -11,7 +11,7 @@ export function getSkills() {
                     dispatch(fetchData(data));
                 },
                 error => {
-                    dispatch(snackbar("error", getErrorMessage(error.response)));
+                    dispatchError(dispatch, error)
                 }
             );
     };
@@ -30,7 +30,7 @@ export function insertNewSkill(skill) {
                     this.getSkills();
                 },
                 error => {
-                    dispatch(snackbar("error", getErrorMessage(error.response)));
+                    dispatchError(dispatch, error)
                 }
             );
     };
@@ -51,8 +51,12 @@ export function insertNewSkill(skill) {
 //     };
 // }
 
-function getErrorMessage(error) {
-    return (error && error.data) ? error.data.message : Messages.GENERIC_ERROR;
+function dispatchError(dispatch, error) {
+    if (error) {
+        const errorResponse = error.response;
+        const error1 = (errorResponse && errorResponse.data) ? errorResponse.data.message : Messages.GENERIC_ERROR;
+        dispatch(snackbar("error", error1));
+    }
 }
 
 function snackbar(variant, message) {

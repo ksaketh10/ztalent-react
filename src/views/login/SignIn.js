@@ -7,6 +7,7 @@ import { CURRENT_USER } from '../../_constants/UriConstants';
 import SigninForm from '../../_components/SigninForm';
 import { Button, withStyles } from '@material-ui/core';
 import SnackBar from '../../_components/CustomizedSnackbar';
+import { userService } from '../../_services/UserService';
 
 const styles = theme => ({
     submit: {
@@ -22,7 +23,7 @@ class SignIn extends Component {
             redirect: false,
             url: ""
         };
-        localStorage.removeItem(CURRENT_USER)
+        userService.logout()
     }
 
     handleSignin = (event, user) => {
