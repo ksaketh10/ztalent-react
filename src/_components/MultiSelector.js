@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NoSsr from '@material-ui/core/NoSsr';
 import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -127,21 +126,13 @@ function MultiValue(props) {
     );
 }
 
-function Menu(props) {
-    return (
-        <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
-            {props.children}
-        </Paper>
-    );
-}
-
 class MultiSelector extends React.Component {
     newItem = "";
     state = {
         multi: this.props.selectedItems ? this.props.selectedItems.map(item => ({
             value: item,
             label: item
-        })) : [],
+        })) : null,
         items: this.props.items,
         searchText: ""
     };
@@ -162,13 +153,13 @@ class MultiSelector extends React.Component {
     NoOptionsMessage = (props) => {
         return (
             <Button id="no_options" fullWidth variant="contained" color="default" size="small" onClick={() => this.handleNewItemClick(props.selectProps.inputValue)}>
-                {props.selectProps.inputValue.length !== 0 && <AddIcon /> }
+                {props.selectProps.inputValue.length !== 0 && <AddIcon />}
                 <Typography
                     color="textPrimary"
                     className={props.selectProps.classes.noOptionsMessage}
                     {...props.innerProps}
                 >
-                    {props.selectProps.inputValue.length !== 0 ? this.props.noOptionsMessage: props.children}
+                    {props.selectProps.inputValue.length !== 0 ? this.props.noOptionsMessage : props.children}
                 </Typography>
             </Button>
         );
@@ -176,7 +167,6 @@ class MultiSelector extends React.Component {
 
     components = {
         Control,
-        Menu,
         MultiValue,
         NoOptionsMessage: this.NoOptionsMessage,
         Option,
@@ -245,6 +235,8 @@ class MultiSelector extends React.Component {
                         placeholder={this.props.placeholder}
                         inputValue={this.state.searchText}
                         onInputChange={this.onInputChange}
+                        menuPlacement="top"
+                        maxMenuHeight={200}
                         isMulti
                     />
                 </NoSsr>

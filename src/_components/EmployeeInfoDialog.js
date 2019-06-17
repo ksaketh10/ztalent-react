@@ -184,23 +184,20 @@ class EmployeeInfoDialog extends React.Component {
                     fullWidth
                   />
                 </FormControl>
-                <FormControl
-                  required
-                  fullWidth
-                >
+                <FormControl fullWidth>
                   <TextField
-                    required
                     margin="dense"
                     id="first_name"
-                    error={validateTextField(this.state.firstName, 'firstName')}
-                    helperText={validateTextField(this.state.firstName, 'firstName') ? Messages.SPECIAL_CHARACTERS_NOT_ALLOWED : ' '}
+                    required
                     value={this.state.firstName}
                     onChange={this.onChangeFirstName}
+                    error={validateTextField(this.state.firstName, 'firstName')}
+                    helperText={validateTextField(this.state.firstName, 'firstName') ? Messages.SPECIAL_CHARACTERS_NOT_ALLOWED : ' '}
                     label="First Name"
                     fullWidth
                   />
                 </FormControl>
-                <FormControl required fullWidth>
+                <FormControl fullWidth>
                   <TextField
                     margin="dense"
                     id="last_name"
